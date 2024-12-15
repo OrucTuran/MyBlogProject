@@ -39,13 +39,13 @@ namespace MyBlogNight.PresentationLayer.Controllers
         {
             article.CreatedDate = DateTime.Now;
             _articleService.TInsert(article);
-            return RedirectToAction("ArticleList");
+            return RedirectToAction(nameof(ArticleList));
         }
 
         public IActionResult DeleteArticle(int id)
         {
             _articleService.TDelete(id);
-            return RedirectToAction("ArticleList");
+            return RedirectToAction(nameof(ArticleList));
         }
         public IActionResult ArticleDetail(int id)
         {
