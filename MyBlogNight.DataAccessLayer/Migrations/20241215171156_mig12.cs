@@ -53,7 +53,7 @@ namespace MyBlogNight.DataAccessLayer.Migrations
                 column: "ArticleId",
                 principalTable: "Articles",
                 principalColumn: "ArticleId",
-                onDelete: ReferentialAction.NoAction);
+                onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Comments_AspNetUsers_AppUserId",
@@ -61,7 +61,7 @@ namespace MyBlogNight.DataAccessLayer.Migrations
                 column: "AppUserId",
                 principalTable: "AspNetUsers",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.NoAction);
+                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

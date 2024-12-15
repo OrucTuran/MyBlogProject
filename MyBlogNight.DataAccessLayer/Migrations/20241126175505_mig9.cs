@@ -26,7 +26,7 @@ namespace MyBlogNight.DataAccessLayer.Migrations
                 column: "AppUserId",
                 principalTable: "AspNetUsers",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict); // ON DELETE NO ACTION
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

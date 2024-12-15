@@ -14,4 +14,3 @@ namespace MyBlogNight.EntityLayer.Concrete
         public List<Article> Articles { get; set; }
     }
 }
-//public-private-internal-protected

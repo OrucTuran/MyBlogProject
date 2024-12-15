@@ -12,7 +12,7 @@ using MyBlogNight.DataAccessLayer.Context;
 namespace MyBlogNight.DataAccessLayer.Migrations
 {
     [DbContext(typeof(BlogContext))]
-    [Migration("20241128180644_mig12")]
+    [Migration("20241215171156_mig12")]
     partial class mig12
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -13,7 +13,8 @@ namespace MyBlogNight.DataAccessLayer.Context
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=DESKTOP-1FB5EJT\\SQLEXPRESS;Initial Catalog=MyBlogFoodyDb;Integrated Security=True;");
+            optionsBuilder.UseSqlServer("Server=DESKTOP-1FB5EJT\\SQLEXPRESS;Initial Catalog=MyBlogFoodyy;Integrated Security=True;");
+
         }
 
 

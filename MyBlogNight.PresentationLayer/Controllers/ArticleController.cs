@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MyBlogNight.BusinessLayer.Abstract;
+using MyBlogNight.DataAccessLayer.Context;
 using MyBlogNight.EntityLayer.Concrete;
 
 namespace MyBlogNight.PresentationLayer.Controllers
@@ -39,6 +40,8 @@ namespace MyBlogNight.PresentationLayer.Controllers
         {
             article.CreatedDate = DateTime.Now;
             _articleService.TInsert(article);
+            BlogContext asd = new BlogContext();
+            asd.SaveChanges();
             return RedirectToAction(nameof(ArticleList));
         }
 

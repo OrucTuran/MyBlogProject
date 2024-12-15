@@ -26,7 +26,7 @@ namespace MyBlogNight.DataAccessLayer.Migrations
                 column: "CategoryId",
                 principalTable: "Categories",
                 principalColumn: "CategoryId",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict); // ON DELETE NO ACTION
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
