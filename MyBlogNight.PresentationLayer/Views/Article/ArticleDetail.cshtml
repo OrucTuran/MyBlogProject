@@ -61,6 +61,12 @@
             .new-comment button:hover {
                 background-color: #0056b3;
             }
+
+        #comment {
+            width: contain;
+            min-height: 100px; /* Minimum başlangıç yüksekliği */
+            resize: vertical; /* Yalnızca aşağı yukarı genişletmeye izin verir */
+        }
     </style>
 </head>
 <body>
@@ -68,10 +74,11 @@
         <!-- Blog Başlığı ve İçeriği -->
         <h1>@Model.Title</h1>
         <img src="@Model.CoverImageUrl" style="height:500px; width:100%;" />
-
         <p><strong>Yayınlanma Tarihi:</strong> @Model.CreatedDate.ToString("dd-MMM-yyyy")</p>
-        <p>Kategori: <strong>@Model.Category.CategoryName</strong></p>
-        <p>@Model.Detail.</p>
+        <div class="author">
+            <p>Kategori: <strong>@Model.Category.CategoryName</strong></p>
+            <p>@Model.Detail</p>
+        </div>
 
         <!-- Yazar Bilgisi -->
         <div class="author">

@@ -52,7 +52,7 @@ namespace MyBlogNight.PresentationLayer.Controllers
         }
         public IActionResult ArticleDetail(int id)
         {
-            _articleService.TArticleViewCountIncrease(id);
+            _articleService.TArticleViewCountIncrease(id);//goruntulenen article i viewCount ++ 
 
             var value = _articleService.TArticleListWithCategoryAndAppUserByArticleId(id);
             return View(value);

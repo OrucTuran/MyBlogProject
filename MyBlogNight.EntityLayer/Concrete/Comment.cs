@@ -12,9 +12,9 @@ namespace MyBlogNight.EntityLayer.Concrete
         public string CommentDetail { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool Status { get; set; }
-        public int AppUserId { get; set; }
+        public int AppUserId { get; set; } //bu yorumu kim yapti 
         public AppUser AppUser { get; set; }
-        public int ArticleId { get; set; }
+        public int ArticleId { get; set; }// yorum hangi makaleye yapildi
         public Article Article { get; set; }
     }
 }

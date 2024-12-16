@@ -24,7 +24,7 @@ namespace MyBlogNight.DataAccessLayer.EntityFramework
             return values;
         }
 
-        public List<Comment> GetCommentsByArticleId(int id)
+        public List<Comment> GetCommentsByArticleId(int id)//bir makaleye(article)gore yorum getirecek
         {
             var context = new BlogContext();
             var values = context.Comments.Where(x => x.ArticleId == id).Include(y => y.AppUser).ToList();

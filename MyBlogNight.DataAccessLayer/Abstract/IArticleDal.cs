@@ -10,8 +10,8 @@ namespace MyBlogNight.DataAccessLayer.Abstract
     public interface IArticleDal : IGenericDal<Article>
     {
         List<Article> ArticleListWithCategory();
-        List<Article> ArticleListWithCategoryAndAppUser();
-        Article ArticleListWithCategoryAndAppUserByArticleId(int id);
+        List<Article> ArticleListWithCategoryAndAppUser(); //bütün listeyi götürür.
+        Article ArticleListWithCategoryAndAppUserByArticleId(int id); 
         void ArticleViewCountIncrease(int id);
         List<Article> GetArticlesByAppUserId(int id);
     }
