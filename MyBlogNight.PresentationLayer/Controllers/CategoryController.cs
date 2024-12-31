@@ -28,10 +28,10 @@ namespace MyBlogNight.PresentationLayer.Controllers
         [HttpPost]
         public IActionResult CreateCategory(Category category)
         {
-            ModelState.Clear();
+            ModelState.Clear(); //mevcuttaki butun data annotacionslari siler. bunun yerine asagidaki benim kurallarim gecerli olur.
             CreateCategoryValidator validationRules = new CreateCategoryValidator();
-            ValidationResult result = validationRules.Validate(category);
-            if (result.IsValid)
+            ValidationResult result = validationRules.Validate(category); //category den gelen degerleri validate et
+            if (result.IsValid) //validasyona takilmiyorsa
             {
                 _categoryService.TInsert(category);
                 return RedirectToAction("CategoryList");
@@ -40,7 +40,7 @@ namespace MyBlogNight.PresentationLayer.Controllers
             {
                 foreach (var item in result.Errors)
                 {
-                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                    ModelState.AddModelError(item.PropertyName/*hataya sebep olan property*/, item.ErrorMessage);
                 }
                 return View();
             }
