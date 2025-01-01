@@ -1,0 +1,49 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+@await Html.PartialAsync("PartialMarkediaHead")
+<body>
+
+    <div id="wrapper">
+        @await Html.PartialAsync("PartialMarkediaHeader")
+
+        @await Html.PartialAsync("PartialMarkediaSubscribe")
+
+        <section class="section lb">
+            <div class="container">
+                @RenderBody()
+            </div><!-- end container -->
+        </section>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    @await Html.PartialAsync("PartialMarkediaFooterRecentPosts")
+
+                    @await Html.PartialAsync("PartialMarkediaFooterPopularPosts")
+
+                    @await Html.PartialAsync("PartialMarkediaFooterPopularCategories")
+                </div><!-- end row -->
+
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <br>
+                        <br>
+                        <div class="copyright">&copy; Markedia. Design: <a href="http://html.design">HTML Design</a>.</div>
+                    </div>
+                </div>
+            </div><!-- end container -->
+        </footer><!-- end footer -->
+
+        <div class="dmtop">Scroll to Top</div>
+
+    </div><!-- end wrapper -->
+    <!-- Core JavaScript
+    ================================================== -->
+    @await Html.PartialAsync("PartialMarkediaScripts")
+
+</body>
+</html>
