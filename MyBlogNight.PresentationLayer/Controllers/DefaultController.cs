@@ -16,6 +16,10 @@ namespace MyBlogNight.PresentationLayer.Controllers
         {
             return PartialView();
         }
+        public PartialViewResult PartialMarkediaSidebar()
+        {
+            return PartialView();
+        }
         public PartialViewResult PartialMarkediaScripts()
         {
             return PartialView();
