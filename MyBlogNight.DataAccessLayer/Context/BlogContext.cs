@@ -24,5 +24,6 @@ namespace MyBlogNight.DataAccessLayer.Context
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<SocialMedia> SocialMedias { get; set; }
         public DbSet<TagCloud> TagClouds { get; set; }
+        public DbSet<Newsletter> Newsletters { get; set; }
     }
 }

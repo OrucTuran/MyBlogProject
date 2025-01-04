@@ -6,7 +6,7 @@ using MyBlogNight.EntityLayer.Concrete;
 
 namespace MyBlogNight.PresentationLayer.Controllers
 {
-    public class CategoryController : Controller
+    public class CategoryController : Controller //ADMIN TARAFI ICIN KULLANILACAK
     {
         private readonly ICategoryService _categoryService;
         public CategoryController(ICategoryService categoryService)
