@@ -2,6 +2,7 @@
 using MyBlogNight.BusinessLayer.Abstract;
 using MyBlogNight.DataAccessLayer.Context;
 using MyBlogNight.EntityLayer.Concrete;
+using PagedList;
 
 namespace MyBlogNight.PresentationLayer.Controllers
 {
@@ -19,11 +20,13 @@ namespace MyBlogNight.PresentationLayer.Controllers
         {
             return View();
         }
-        public IActionResult MarkediaIndex()
+        public IActionResult MarkediaIndex(int page = 1)
         {
-            var values = _articleService.TArticleListWithCategoryAndAppUser();
-            return View(values);
+            int pageSize = 6; // Her sayfada 6 blog gösterilsin.
+            var values = _articleService.TArticleListWithCategoryAndAppUser().ToPagedList(page,pageSize);
+            return View(values); // PagedList nesnesini View'a gönderiyoruz
         }
+
         public PartialViewResult PartialMarkediaHead()
         {
             return PartialView();

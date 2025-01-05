@@ -1,4 +1,5 @@
-﻿@model List<Article>
+﻿@using PagedList
+@model IPagedList<MyBlogNight.EntityLayer.Concrete.Article>
 @{
     ViewData["Title"] = "MarkediaIndex";
     Layout = "~/Views/Shared/_MarkediaLayout.cshtml";
@@ -11,41 +12,83 @@
                 <div class="blog-box wow fadeIn">
                     @foreach (var item in Model)
                     {
-
                         <div class="post-media">
                             <a href="~/markedia/markedia/marketing-single.html" title="">
-                                @*Blogun sayfasına gidecek*@
                                 <img src="@item.CoverImageUrl" alt="" class="img-fluid">
-                                <!-- end hover -->
                             </a>
                         </div>
-                        <!-- end media -->
                         <div class="blog-meta big-meta text-center">
-                            <div class="post-sharing">
-                                <ul class="list-inline">
-                                    <li><a href="https://github.com/OrucTuran" target="_blank" class="fb-button btn btn-primary"><i class="fa fa-facebook"></i> <span class="down-mobile">Share on Facebook</span></a></li>
-                                    <li><a href="https://github.com/OrucTuran" target="_blank" class="tw-button btn btn-primary"><i class="fa fa-twitter"></i> <span class="down-mobile">Tweet on Twitter</span></a></li>
-                                    <li><a href="https://github.com/OrucTuran" target="_blank" class="gp-button btn btn-primary"><i class="fa fa-google-plus"></i></a></li>
-                                </ul>
-                            </div><!-- end post-sharing -->
                             <h4><a href="~/markedia/markedia/marketing-single.html" title="">@item.Title</a></h4>
                             <p>@item.Detail.Substring(0, 300)... <a href="#">Devamını oku</a></p>
                             <small><a href="~/markedia/markedia/marketing-category.html" title="">@item.Category.CategoryName</a></small>
                             <small><a href="~/markedia/markedia/marketing-single.html" title="">@item.CreatedDate</a></small>
-                            <small><a href="#" title="">@item.AppUser.Name @item.AppUser.Surname</a></small>@**@
+                            <small><a href="#" title="">@item.AppUser.Name @item.AppUser.Surname</a></small>
                             <small><a href="#" title=""><i class="fa fa-eye"></i> @item.ArticleViewCount</a></small>
                         </div>
-
-                        <!-- end meta -->
                     }
-                </div><!-- end blog-box -->
+                </div>
 
                 <hr class="invis">
 
+                <!-- Sayfa numaraları -->
+                <div class="pagination-wrapper">
+                    @for (var i = 1; i <= Model.PageCount; i++)
+                    {
+                        <a href="@Url.Action("MarkediaIndex", new { page = i })" class="page-number @if(i == Model.PageNumber) {
+                    <text>active</text>
+ }">@i</a>
+                    }
+                </div>
+
             </div>
         </div>
-
-        <hr class="invis">
-    </div><!-- end col -->
+    </div>
     @await Html.PartialAsync("PartialMarkediaSidebar")
-</div><!-- end row -->
+</div>
+<style>
+    /* Sayfa numaralarının kapsayıcı container'ı */
+    .pagination-wrapper {
+        display: flex;
+        justify-content: center; /* Ortalamayı sağlar */
+        margin-top: 20px;
+    }
+
+    /* Sayfa numarası butonları */
+    .page-number {
+        margin: 0 5px;
+        padding: 10px 15px;
+        background-color: #f0f0f0;
+        color: #333;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+        text-decoration: none;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+        /* Sayfa numarası hover efekti */
+        .page-number:hover {
+            background-color: orange;
+            color: white;
+            border-color: white;
+        }
+
+        /* Aktif sayfa numarasının stilini belirler */
+        .page-number.active {
+            background-color: orange;
+            color: white;
+            font-weight: bold;
+            border-color: white;
+        }
+
+        /* Sayfa numarası butonları arasındaki boşluk */
+        .page-number:not(:last-child) {
+            margin-right: 10px;
+        }
+
+    /* Sayfa numaralarındaki font büyüklüğü ve hizalamayı düzenler */
+    .page-number {
+        font-weight: 600;
+    }
+
+</style>
