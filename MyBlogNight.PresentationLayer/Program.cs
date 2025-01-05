@@ -15,9 +15,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<BlogContext>();
 builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<BlogContext>().AddErrorDescriber<CustomIdentityErrorValidator>();
 
+
 builder.Services.ContainerDependencies();
 
 builder.Services.AddControllersWithViews().AddFluentValidation();
+
+
 
 var app = builder.Build();
 

@@ -1,17 +1,23 @@
-﻿<section id="cta" class="section">
+﻿<!-- SweetAlert2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.9/dist/sweetalert2.min.css" rel="stylesheet">
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.9/dist/sweetalert2.min.js"></script>
+
+<section id="cta" class="section">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-12 align-self-center">
                 <h2>A digital marketing blog</h2>
-                <p class="lead"> Aenean ut hendrerit nibh. Duis non nibh id tortor consequat cursus at mattis felis. Praesent sed lectus et neque auctor dapibus in non velit. Donec faucibus odio semper risus rhoncus rutrum. Integer et ornare mauris.</p>
+                <p class="lead">Aenean ut hendrerit nibh...</p>
                 <a href="#" class="btn btn-primary">Try for free</a>
             </div>
             <div class="col-lg-4 col-md-12">
                 <div class="newsletter-widget text-center align-self-center">
                     <h3>Bültene Abone Ol!</h3>
                     <p>Haftalık Bültenimize abone olun ve e-posta yoluyla güncellemeleri alın.</p>
-                    <form class="form-inline" method="post">
-                        <input type="text" name="email" placeholder="Add your email here.." required class="form-control" />
+                    <form id="subscribeForm" method="post" onsubmit="return handleSubscribeForm(event)">
+                        <input type="email" id="email" name="email" placeholder="E-posta adresinizi girin.." required class="form-control" />
                         <input type="submit" value="Abone Ol" class="btn btn-default btn-block" />
                     </form>
                 </div><!-- end newsletter -->
@@ -19,3 +25,47 @@
         </div>
     </div>
 </section>
+<script>
+    function handleSubscribeForm(event) {
+        event.preventDefault(); // Formun submit olmasını engeller
+
+        var email = document.getElementById("email").value;
+
+        // E-posta adresi girildiyse SweetAlert2'i göster
+        if (email) {
+            Swal.fire({
+                title: 'Abone Oldunuz!',
+                text: 'Bültene başarılı bir şekilde abone oldunuz!',
+                icon: 'success',
+                confirmButtonText: 'Tamam'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // AJAX ile form verisini gönder
+                    var formData = new FormData();
+                    formData.append("email", email); // E-posta verisini ekle
+
+                    fetch('/Default/PartialMarkediaSubscribe', {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(response => response.text())
+                        .then(data => {
+                            console.log(data); // Gelen yanıtı konsolda görebilirsiniz
+                        })
+                        .catch(error => {
+                            console.error("Error:", error);
+                        });
+                    document.getElementById("email").value = ''; // E-posta inputunu temizle
+                }
+            });
+        } else {
+            // E-posta adresi boşsa uyarı ver
+            Swal.fire({
+                title: 'Hata!',
+                text: 'Lütfen geçerli bir e-posta adresi girin.',
+                icon: 'error',
+                confirmButtonText: 'Tamam'
+            });
+        }
+    }
+</script>
