@@ -1,16 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyBlogNight.BusinessLayer.Abstract;
 
 namespace MyBlogNight.PresentationLayer.Controllers
 {
     public class DefaultController : Controller
     {
+        private readonly IArticleService _articleService;
+
+        public DefaultController(IArticleService articleService)
+        {
+            _articleService = articleService;
+        }
+
         public IActionResult Index()
         {
             return View();
         }
         public IActionResult MarkediaIndex()
         {
-            return View();
+            var values = _articleService.TArticleListWithCategoryAndAppUser();
+            return View(values);
         }
         public PartialViewResult PartialMarkediaHead()
         {

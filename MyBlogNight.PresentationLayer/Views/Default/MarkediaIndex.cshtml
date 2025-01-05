@@ -1,4 +1,4 @@
-﻿
+﻿@model List<Article>
 @{
     ViewData["Title"] = "MarkediaIndex";
     Layout = "~/Views/Shared/_MarkediaLayout.cshtml";
@@ -9,28 +9,35 @@
         <div class="page-wrapper">
             <div class="blog-custom-build">
                 <div class="blog-box wow fadeIn">
-                    <div class="post-media">
-                        <a href="~/markedia/markedia/marketing-single.html" title="">
-                            <img src="https://a.storyblok.com/f/113462/1920x1080/a4b1920ca7/e2024ecb-8b82-4408-9e74-9f9794067e79.jpg" alt="" class="img-fluid">
-                            <!-- end hover -->
-                        </a>
-                    </div>
-                    <!-- end media -->
-                    <div class="blog-meta big-meta text-center">
-                        <div class="post-sharing">
-                            <ul class="list-inline">
-                                <li><a href="#" class="fb-button btn btn-primary"><i class="fa fa-facebook"></i> <span class="down-mobile">Share on Facebook</span></a></li>
-                                <li><a href="#" class="tw-button btn btn-primary"><i class="fa fa-twitter"></i> <span class="down-mobile">Tweet on Twitter</span></a></li>
-                                <li><a href="#" class="gp-button btn btn-primary"><i class="fa fa-google-plus"></i></a></li>
-                            </ul>
-                        </div><!-- end post-sharing -->
-                        <h4><a href="~/markedia/markedia/marketing-single.html" title="">You can learn how to make money with your blog and videos</a></h4>
-                        <p>Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enimcerat elicerat eli nibh, maximus ac felis nec, maximus tempor odio.</p>
-                        <small><a href="~/markedia/markedia/marketing-category.html" title="">Make Money</a></small>
-                        <small><a href="~/markedia/markedia/marketing-single.html" title="">24 July, 2017</a></small>
-                        <small><a href="#" title="">by Jack</a></small>
-                        <small><a href="#" title=""><i class="fa fa-eye"></i> 2291</a></small>
-                    </div><!-- end meta -->
+                    @foreach (var item in Model)
+                    {
+
+                        <div class="post-media">
+                            <a href="~/markedia/markedia/marketing-single.html" title="">
+                                @*Blogun sayfasına gidecek*@
+                                <img src="@item.CoverImageUrl" alt="" class="img-fluid">
+                                <!-- end hover -->
+                            </a>
+                        </div>
+                        <!-- end media -->
+                        <div class="blog-meta big-meta text-center">
+                            <div class="post-sharing">
+                                <ul class="list-inline">
+                                    <li><a href="https://github.com/OrucTuran" target="_blank" class="fb-button btn btn-primary"><i class="fa fa-facebook"></i> <span class="down-mobile">Share on Facebook</span></a></li>
+                                    <li><a href="https://github.com/OrucTuran" target="_blank" class="tw-button btn btn-primary"><i class="fa fa-twitter"></i> <span class="down-mobile">Tweet on Twitter</span></a></li>
+                                    <li><a href="https://github.com/OrucTuran" target="_blank" class="gp-button btn btn-primary"><i class="fa fa-google-plus"></i></a></li>
+                                </ul>
+                            </div><!-- end post-sharing -->
+                            <h4><a href="~/markedia/markedia/marketing-single.html" title="">@item.Title</a></h4>
+                            <p>@item.Detail.Substring(0, 300)... <a href="#">Devamını oku</a></p>
+                            <small><a href="~/markedia/markedia/marketing-category.html" title="">@item.Category.CategoryName</a></small>
+                            <small><a href="~/markedia/markedia/marketing-single.html" title="">@item.CreatedDate</a></small>
+                            <small><a href="#" title="">@item.AppUser.Name @item.AppUser.Surname</a></small>@**@
+                            <small><a href="#" title=""><i class="fa fa-eye"></i> @item.ArticleViewCount</a></small>
+                        </div>
+
+                        <!-- end meta -->
+                    }
                 </div><!-- end blog-box -->
 
                 <hr class="invis">
@@ -42,4 +49,3 @@
     </div><!-- end col -->
     @await Html.PartialAsync("PartialMarkediaSidebar")
 </div><!-- end row -->
-
