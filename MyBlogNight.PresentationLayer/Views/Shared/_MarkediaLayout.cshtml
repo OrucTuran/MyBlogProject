@@ -22,11 +22,11 @@
         <footer class="footer">
             <div class="container">
                 <div class="row">
-                    @await Html.PartialAsync("PartialMarkediaFooterRecentPosts")
+                    @await Component.InvokeAsync("_DefaultHomepageFooterRecentPost")
 
-                    @await Html.PartialAsync("PartialMarkediaFooterPopularPosts")
+                    @await Component.InvokeAsync("_DefaultHomepageFooterPopularPosts")
 
-                    @await Html.PartialAsync("PartialMarkediaFooterPopularCategories")
+                    @await Component.InvokeAsync("_DefaultHomepageFooterPopulerCategories")
                 </div><!-- end row -->
 
                 <div class="row">
