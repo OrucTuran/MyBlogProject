@@ -2,6 +2,7 @@
 using MyBlogNight.DataAccessLayer.Abstract;
 using MyBlogNight.DataAccessLayer.Context;
 using MyBlogNight.DataAccessLayer.Repositories;
+using MyBlogNight.DtoLayer.Dtos.ArticleDtos;
 using MyBlogNight.EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -50,6 +51,38 @@ namespace MyBlogNight.DataAccessLayer.EntityFramework
             var context = new BlogContext();
             var values = context.Articles.Where(x => x.AppUserId == id).ToList();
             return values;
+        }
+
+        public List<Article> GetArticlesByViewCount()
+        {
+            var context = new BlogContext();
+
+            // ArticleViewCount'a göre sıralama yapıyoruz (en çok görüntülenen makale önce gelecek)
+            var sortedArticles = context.Articles
+                .OrderByDescending(a => a.ArticleViewCount) // ArticleViewCount'a göre azalan sıralama
+                .Take(4)
+                .Include(a => a.Category) // İlgili kategoriyi de dahil ediyoruz
+                .Include(a => a.AppUser)  // İlgili kullanıcıyı da dahil ediyoruz
+                .ToList();
+
+            return sortedArticles;
+        }
+
+        public List<CategoryWithArticleCount> GetCategoriesWithArticleCount()
+        {
+            var context = new BlogContext();
+
+            // Kategorileri ve her kategorinin makale sayısını alıyoruz
+            var categoryCounts = context.Categories
+                .Select(c => new CategoryWithArticleCount
+                {
+                    CategoryName = c.CategoryName,
+                    ArticleCount = c.Articles.Count
+                })
+                .OrderByDescending(c => c.ArticleCount)  // En çok makale bulunan kategori en üstte olacak
+                .ToList();
+
+            return categoryCounts;
         }
     }
 }

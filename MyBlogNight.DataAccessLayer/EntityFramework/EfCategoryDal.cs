@@ -15,5 +15,6 @@ namespace MyBlogNight.DataAccessLayer.EntityFramework
         public EfCategoryDal(BlogContext context) : base(context)
         {
         }
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using MyBlogNight.BusinessLayer.Abstract;
 using MyBlogNight.DataAccessLayer.Abstract;
+using MyBlogNight.DtoLayer.Dtos.ArticleDtos;
 using MyBlogNight.EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -48,10 +49,22 @@ namespace MyBlogNight.BusinessLayer.Concrete
         {
             return _articleDal.GetArticlesByAppUserId(id);
         }
+
+        public List<Article> TGetArticlesByViewCount()
+        {
+            return _articleDal.GetArticlesByViewCount();
+        }
+
         public Article TGetById(int id)
         {
             return _articleDal.GetById(id);
         }
+
+        public List<CategoryWithArticleCount> TGetCategoriesWithArticleCount()
+        {
+           return _articleDal.GetCategoriesWithArticleCount();
+        }
+
         public void TInsert(Article entity)
         {
             _articleDal.Insert(entity);

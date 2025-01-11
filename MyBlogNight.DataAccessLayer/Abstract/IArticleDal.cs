@@ -1,4 +1,5 @@
-﻿using MyBlogNight.EntityLayer.Concrete;
+﻿using MyBlogNight.DtoLayer.Dtos.ArticleDtos;
+using MyBlogNight.EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,7 @@ namespace MyBlogNight.DataAccessLayer.Abstract
         Article ArticleListWithCategoryAndAppUserByArticleId(int id); 
         void ArticleViewCountIncrease(int id);
         List<Article> GetArticlesByAppUserId(int id);
+        public List<CategoryWithArticleCount> GetCategoriesWithArticleCount();
+        public List<Article> GetArticlesByViewCount();
     }
 }
