@@ -10,10 +10,12 @@ namespace MyBlogNight.PresentationLayer.Controllers
     {
         private readonly IArticleService _articleService;
        private readonly INewsletterService _newsletterService;
-        public DefaultController(IArticleService articleService, INewsletterService newsletterService)
+        private readonly ICategoryService _categoryService;
+        public DefaultController(IArticleService articleService, INewsletterService newsletterService, ICategoryService categoryService)
         {
             _articleService = articleService;
             _newsletterService = newsletterService;
+            _categoryService = categoryService;
         }
 
         public IActionResult Index()
@@ -22,19 +24,16 @@ namespace MyBlogNight.PresentationLayer.Controllers
         }
         public IActionResult MarkediaIndex(int page = 1)
         {
-            int pageSize = 6; // Her sayfada 6 blog gösterilsin.
+            int pageSize = 6;
             var values = _articleService.TArticleListWithCategoryAndAppUser().ToPagedList(page,pageSize);
-            return View(values); // PagedList nesnesini View'a gönderiyoruz
+            return View(values);
         }
 
         public PartialViewResult PartialMarkediaHead()
         {
             return PartialView();
         }
-        public PartialViewResult PartialMarkediaSidebar()
-        {
-            return PartialView();
-        }
+
         public PartialViewResult PartialMarkediaScripts()
         {
             return PartialView();
@@ -61,19 +60,6 @@ namespace MyBlogNight.PresentationLayer.Controllers
                 TempData["Error"] = "Bir hata oluştu.";
                 return Json(new { success = false, message = "Abonelik hatası" }); // Hata mesajı döndür
             }
-        }
-
-        public PartialViewResult PartialMarkediaFooterRecentPosts()
-        {
-            return PartialView();
-        }
-        public PartialViewResult PartialMarkediaFooterPopularPosts()
-        {
-            return PartialView();
-        }
-        public PartialViewResult PartialMarkediaFooterPopularCategories()
-        {
-            return PartialView();
         }
     }
 }
