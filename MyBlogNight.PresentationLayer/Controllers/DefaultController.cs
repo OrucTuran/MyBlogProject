@@ -9,15 +9,12 @@ namespace MyBlogNight.PresentationLayer.Controllers
     public class DefaultController : Controller
     {
         private readonly IArticleService _articleService;
-       private readonly INewsletterService _newsletterService;
-        private readonly ICategoryService _categoryService;
-        public DefaultController(IArticleService articleService, INewsletterService newsletterService, ICategoryService categoryService)
+        private readonly INewsletterService _newsletterService;
+        public DefaultController(IArticleService articleService, INewsletterService newsletterService)
         {
             _articleService = articleService;
             _newsletterService = newsletterService;
-            _categoryService = categoryService;
         }
-
         public IActionResult Index()
         {
             return View();
@@ -25,15 +22,13 @@ namespace MyBlogNight.PresentationLayer.Controllers
         public IActionResult MarkediaIndex(int page = 1)
         {
             int pageSize = 6;
-            var values = _articleService.TArticleListWithCategoryAndAppUser().ToPagedList(page,pageSize);
+            var values = _articleService.TArticleListWithCategoryAndAppUser().ToPagedList(page, pageSize);
             return View(values);
         }
-
         public PartialViewResult PartialMarkediaHead()
         {
             return PartialView();
         }
-
         public PartialViewResult PartialMarkediaScripts()
         {
             return PartialView();
