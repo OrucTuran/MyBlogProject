@@ -13,17 +13,17 @@
                     @foreach (var item in Model)
                     {
                         <div class="post-media">
-                            <a href="~/markedia/markedia/marketing-single.html" title="">
+                            <a href="/BlogDetail/BlogDetails/@item.ArticleId" title="">
                                 <img src="@item.CoverImageUrl" alt="" class="img-fluid">
                             </a>
                         </div>
                         <div class="blog-meta big-meta text-center">
-                            <h4><a href="~/markedia/markedia/marketing-single.html" title="">@item.Title</a></h4>
-                            <p>@item.Detail.Substring(0, 300)... <a href="#">Devamını oku</a></p>
-                            <small><a href="~/markedia/markedia/marketing-category.html" title="">@item.Category.CategoryName</a></small>
-                            <small><a href="~/markedia/markedia/marketing-single.html" title="">@item.CreatedDate</a></small>
-                            <small><a href="#" title="">@item.AppUser.Name @item.AppUser.Surname</a></small>
-                            <small><a href="#" title=""><i class="fa fa-eye"></i> @item.ArticleViewCount</a></small>
+                            <h4><a href="/BlogDetail/BlogDetails/@item.ArticleId" title="">@item.Title</a></h4>
+                            <p>@item.Detail.Substring(0, 300)... <a href="/BlogDetail/BlogDetails/@item.ArticleId">Devamını oku</a></p>
+                            <small><a title="">@item.Category.CategoryName</a></small>
+                            <small><a title="">@item.CreatedDate</a></small>
+                            <small><a title="">@item.AppUser.Name @item.AppUser.Surname</a></small>
+                            <small><a title=""><i class="fa fa-eye"></i> @item.ArticleViewCount</a></small>
                         </div>
                     }
                 </div>
