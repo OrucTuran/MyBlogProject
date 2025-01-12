@@ -35,6 +35,8 @@ namespace MyBlogNight.DataAccessLayer.EntityFramework
         {
             var context = new BlogContext();
             var values = context.Articles.Where(x => x.ArticleId == id).Include(y => y.Category).Include(z => z.AppUser).FirstOrDefault();
+            values.ArticleViewCount += 1;
+            context.SaveChanges();
             return values;
         }
 
