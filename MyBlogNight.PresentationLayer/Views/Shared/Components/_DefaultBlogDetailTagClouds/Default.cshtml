@@ -1,0 +1,12 @@
+﻿@model List<MyBlogNight.EntityLayer.Concrete.TagCloud>
+@{
+    Layout = null;
+}
+
+<div class="tag-cloud-single">
+    <span>Etiketler</span>
+    @foreach (var item in Model)
+    {
+        <small><a href="#" title="">@item.Title</a></small>
+    }
+</div>
