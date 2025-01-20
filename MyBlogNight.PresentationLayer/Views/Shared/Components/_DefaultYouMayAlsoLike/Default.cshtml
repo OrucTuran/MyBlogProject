@@ -1,0 +1,33 @@
+﻿@model List<MyBlogNight.EntityLayer.Concrete.Article>
+@{
+    Layout = null;
+}
+
+<div class="custombox clearfix">
+    <h4 class="small-title">Ayrıca şunları da beğenebilirsiniz</h4>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-6">
+                <div class="blog-box">
+                    <div class="post-media">
+                        <a href="/BlogDetail/BlogDetails/@item.ArticleId" title="">
+                            <img src="@item.CoverImageUrl" alt="" class="img-fluid">
+                            <div class="hovereffect">
+                                <span class=""></span>
+                            </div><!-- end hover -->
+                        </a>
+                    </div><!-- end media -->
+                    <div class="blog-meta">
+                        <h4><a href="/BlogDetail/BlogDetails/@item.ArticleId" title="">@item.Title</a></h4>
+                        <small><a href="#" title="">@item.Category.CategoryName</a></small>
+                        <small><a href="#" title="">@item.CreatedDate</a></small>
+                        <small><a href="#" title=""><i class="fa fa-eye"></i> @item.ArticleViewCount</a></small><!--GÖRÜNTÜLENME SAYISI-->
+                    </div><!-- end meta -->
+                </div>
+            </div>
+
+            <!-- end col -->
+        }
+    </div>
+</div><!-- end custom-box -->

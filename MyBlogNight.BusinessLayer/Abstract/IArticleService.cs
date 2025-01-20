@@ -17,5 +17,6 @@ namespace MyBlogNight.BusinessLayer.Abstract
         public List<Article> TGetArticlesByAppUserId(int id);
         public List<CategoryWithArticleCount> TGetCategoriesWithArticleCount();
         public List<Article> TGetArticlesByViewCount();
+        public List<Article> TGetRandomTwoTop5ViewedArticles();
     }
 }

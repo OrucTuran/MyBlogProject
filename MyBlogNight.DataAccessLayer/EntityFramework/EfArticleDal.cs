@@ -86,5 +86,28 @@ namespace MyBlogNight.DataAccessLayer.EntityFramework
 
             return categoryCounts;
         }
+
+        public List<Article> GetRandomTwoTop5ViewedArticles()
+        {
+            var context = new BlogContext();
+
+            //en cok goruntulenen ilk 5 makale
+            var top5Articles = context.Articles
+                .OrderByDescending(a => a.ArticleViewCount)
+                .Take(5)
+                .Include(a => a.Category)
+                .Include(b => b.AppUser)
+                .Include(c => c.Comments)
+                .ToList();
+
+            //rastgele 2 makale
+            var random = new Random();
+            var randomTwoArticles = top5Articles
+                .OrderBy(x => random.Next())
+                .Take(2)
+                .ToList();
+
+            return randomTwoArticles;
+        }
     }
 }

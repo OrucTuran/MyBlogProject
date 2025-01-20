@@ -17,5 +17,6 @@ namespace MyBlogNight.DataAccessLayer.Abstract
         List<Article> GetArticlesByAppUserId(int id);
         public List<CategoryWithArticleCount> GetCategoriesWithArticleCount();
         public List<Article> GetArticlesByViewCount();
+        public List<Article> GetRandomTwoTop5ViewedArticles();
     }
 }

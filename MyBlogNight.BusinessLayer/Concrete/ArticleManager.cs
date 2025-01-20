@@ -65,6 +65,11 @@ namespace MyBlogNight.BusinessLayer.Concrete
            return _articleDal.GetCategoriesWithArticleCount();
         }
 
+        public List<Article> TGetRandomTwoTop5ViewedArticles()
+        {
+           return _articleDal.GetRandomTwoTop5ViewedArticles();
+        }
+
         public void TInsert(Article entity)
         {
             _articleDal.Insert(entity);
