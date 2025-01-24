@@ -1,0 +1,10 @@
+﻿<div class="custombox clearfix">
+    <h4 class="small-title">Cevap Yaz</h4>
+    <p>Ad Soyad: @ViewBag.UserName</p>
+
+    <form action="/Comment/AddComment" method="post">
+        <input type="hidden" name="articleId" value="@ViewBag.ArticleId" />
+        <textarea name="commentContent" class="form-control" placeholder="Yorumunuzu yazın..." required></textarea>
+        <button type="submit" class="btn btn-primary">Gönder</button>
+    </form>
+</div>

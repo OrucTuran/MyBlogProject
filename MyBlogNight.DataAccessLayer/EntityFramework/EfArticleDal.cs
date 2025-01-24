@@ -70,6 +70,16 @@ namespace MyBlogNight.DataAccessLayer.EntityFramework
             return sortedArticles;
         }
 
+        public Article GetArticleWithCategory(int id)
+        {
+            using (var context = new BlogContext())
+            {
+                return context.Articles
+                              .Include(a => a.Category) // Category ilişkisini dahil ediyoruz
+                              .FirstOrDefault(a => a.ArticleId == id);
+            }
+        }
+
         public List<CategoryWithArticleCount> GetCategoriesWithArticleCount()
         {
             var context = new BlogContext();
