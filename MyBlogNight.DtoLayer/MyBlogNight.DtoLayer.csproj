@@ -9,9 +9,12 @@
   <ItemGroup>
     <Folder Include="Dtos\CategoryDtos\" />
     <Folder Include="Dtos\ContactDtos\" />
-    <Folder Include="Dtos\CommentDtos\" />
     <Folder Include="Dtos\SocialMediaDtos\" />
     <Folder Include="Dtos\NewsletterDtos\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyBlogNight.EntityLayer\MyBlogNight.EntityLayer.csproj" />
   </ItemGroup>
 
 </Project>

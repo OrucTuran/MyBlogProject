@@ -1,10 +1,52 @@
-﻿<div class="custombox clearfix">
-    <h4 class="small-title">Cevap Yaz</h4>
-    <p>Ad Soyad: @ViewBag.UserName</p>
+﻿@using Humanizer
+@model MyBlogNight.DtoLayer.Dtos.CommentDtos.CommentViewDTO
 
-    <form action="/Comment/AddComment" method="post">
-        <input type="hidden" name="articleId" value="@ViewBag.ArticleId" />
-        <textarea name="commentContent" class="form-control" placeholder="Yorumunuzu yazın..." required></textarea>
-        <button type="submit" class="btn btn-primary">Gönder</button>
-    </form>
+
+<!--_DefaultBlogDetailsComments-->
+<div class="comment-section">
+    <!-- Yorumları Listeleme -->
+    <div class="custombox clearfix">
+        <h4 class="small-title">@Model.Comments.Count Yorum</h4>
+        <div class="comments-list">
+            @if (Model.Comments != null && Model.Comments.Any())
+            {
+                foreach (var item in Model.Comments)
+                {
+                    <div class="media">
+                        <a class="media-left" href="#">
+                            <img src="~/markedia/markedia/upload/author.jpg" alt="" class="rounded-circle">
+                        </a>
+                        <div class="media-body">
+                            <h4 class="media-heading user_name">@item.Commenter <small>@item.CreatedDate.Humanize()</small></h4>
+                            <p>@item.CommentDetail</p>
+                            <a href="#" class="btn btn-primary btn-sm">Reply</a>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>Bu makale için henüz yorum yapılmamış.</p>
+            }
+        </div>
+    </div>
+    <br />
+    <!-- Yorum Yazma Alanı -->
+    @if (Model.IsAuthenticated)
+    {
+        <hr />
+        <h4 class="small-title">Cevap Yaz</h4>
+        <p>Ad Soyad: @Model.UserName</p>
+
+        <form action="/Comment/AddComment" method="post">
+            <input type="hidden" name="articleId" value="@Model.ArticleId" />
+            <textarea name="commentContent" class="form-control" placeholder="Yorumunuzu yazın..." required></textarea>
+            <br />
+            <button type="submit" class="btn btn-primary">Gönder</button>
+        </form>
+    }
+    else
+    {
+        <p>Yorum yazabilmek için lütfen giriş yapın.</p>
+    }
 </div>

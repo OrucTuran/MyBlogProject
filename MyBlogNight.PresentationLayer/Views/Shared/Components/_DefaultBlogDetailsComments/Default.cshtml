@@ -1,10 +1,11 @@
 ﻿@using Humanizer
 @model List<MyBlogNight.EntityLayer.Concrete.Comment>
+
 @{
     Layout = null; 
 }
-
-<div class="custombox clearfix">
+<!--_DefaultBlogDetailsComments-->
+@* <div class="custombox clearfix">
     <h4 class="small-title">@Model.Count Yorum</h4>
     <div class="comments-list">
         @foreach (var item in Model)
@@ -22,3 +23,4 @@
         }
     </div>
 </div><!-- end custom-box -->
+ *@

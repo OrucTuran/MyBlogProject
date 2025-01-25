@@ -52,7 +52,17 @@ namespace MyBlogNight.PresentationLayer.Controllers
             return RedirectToAction("Index", "Controller");
         }
 
+        [HttpGet]
+        public IActionResult GetCommentsByArticle(int articleId)
+        {
+            // Yorumları makale ID'sine göre filtrele
+            var comments = _commentService.TGetAll()
+                                          .Where(c => c.ArticleId == articleId && c.Status)
+                                          .ToList();
 
+            // Yorumları View'e gönder
+            return View(comments);
+        }
 
     }
 }
