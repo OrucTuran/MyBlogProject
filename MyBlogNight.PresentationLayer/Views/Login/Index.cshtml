@@ -4,18 +4,44 @@
     Layout = null;
 }
 
-<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-<div class="container">
-    <form method="post">
-        <br /><br />
-        <div class="alert alert-info">Identity Giriş Ekranı</div>
-        <label>Kullanıcı Adınız</label>
-        <input type="text" class="form-control" asp-for="Username" />
-        <br />
-        <label>Şifreniz</label>
-        <input type="password" class="form-control" asp-for="Password" />
-        <br />
-        <button class="btn btn-primary">Giriş Yap</button>
-    </form>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    
+    <!-- MATERIAL DESIGN ICONIC FONT -->
+    <link rel="stylesheet" href="~/colorlib-regform-17/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="~/colorlib-regform-17/css/style.css">
+</head>
+<body>
+
+    <div class="wrapper" style="background-image: url('@Url.Content("~/colorlib-regform-17/images/bg-registration-form-1.jpg")');">
+
+        <div class="inner">
+            <div class="image-holder">
+                <img src="~/colorlib-regform-17/images/registration-form-1.jpg" alt="Login Form">
+            </div>
+            <form method="post">
+                <h3>GİRİŞ YAP</h3>
+                <div class="form-wrapper">
+                    <input type="text" placeholder="Kullanıcı Adınız" class="form-control" asp-for="Username">
+                    <i class="zmdi zmdi-account"></i>
+                </div>
+                <div class="form-wrapper">
+                    <input type="password" placeholder="Şifreniz" class="form-control" asp-for="Password">
+                    <i class="zmdi zmdi-lock"></i>
+                </div>
+                <button type="submit">Giriş Yap
+                    <i class="zmdi zmdi-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+    
+</body>
+</html>

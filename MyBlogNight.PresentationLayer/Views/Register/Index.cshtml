@@ -4,30 +4,56 @@
     Layout = null;
 }
 
-<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayıt Ol</title>
 
+    <!-- MATERIAL DESIGN ICONIC FONT -->
+    <link rel="stylesheet" href="~/colorlib-regform-17/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
 
-<div class="container">
-    <br /><br />
-    <form method="post">
-        <label>Adınız</label>
-        <input type="text" class="form-control" asp-for="Name" />
-        <br />
-        <label>Soyadınız</label>
-        <input type="text" class="form-control" asp-for="Surname" />
-        <br />
-        <label>Email Adresiniz</label>
-        <input type="text" class="form-control" asp-for="Email" />
-        <br />
-        <label>Kullanıcı Adınız</label>
-        <input type="text" class="form-control" asp-for="Username" />
-        <br />
-        <label>Şifreniz</label>
-        <input type="text" class="form-control" asp-for="Password" required />
-        <br />
-        <button class="btn btn-primary">Kullanıcı Kaydet</button>
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="~/colorlib-regform-17/css/style.css">
+</head>
+<body>
 
-        <div class="text-primary" asp-validation-summary="ModelOnly"></div>
+    <div class="wrapper" style="background-image: url('@Url.Content("~/colorlib-regform-17/images/bg-registration-form-1.jpg")');">
+        <div class="inner">
+            <div class="image-holder">
+                <img src="~/colorlib-regform-17/images/registration-form-1.jpg" alt="Register Form">
+            </div>
+            <form method="post">
+                <h3>Kayıt Ol</h3>
+                <div class="form-wrapper">
+                    <input type="text" placeholder="Adınız" class="form-control" asp-for="Name">
+                    <i class="zmdi zmdi-account"></i>
+                </div>
+                <div class="form-wrapper">
+                    <input type="text" placeholder="Soyadınız" class="form-control" asp-for="Surname">
+                    <i class="zmdi zmdi-account"></i>
+                </div>
+                <div class="form-wrapper">
+                    <input type="email" placeholder="Email Adresiniz" class="form-control" asp-for="Email">
+                    <i class="zmdi zmdi-email"></i>
+                </div>
+                <div class="form-wrapper">
+                    <input type="text" placeholder="Kullanıcı Adınız" class="form-control" asp-for="Username">
+                    <i class="zmdi zmdi-account"></i>
+                </div>
+                <div class="form-wrapper">
+                    <input type="password" placeholder="Şifreniz" class="form-control" asp-for="Password" required>
+                    <i class="zmdi zmdi-lock"></i>
+                </div>
+                <button type="submit">
+                    Kayıt Ol
+                    <i class="zmdi zmdi-arrow-right"></i>
+                </button>
+                <div class="text-primary" asp-validation-summary="ModelOnly"></div>
+            </form>
+        </div>
+    </div>
 
-    </form>
-</div>
+</body>
+</html>
