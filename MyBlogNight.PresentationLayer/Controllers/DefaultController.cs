@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using MyBlogNight.BusinessLayer.Abstract;
 using MyBlogNight.DataAccessLayer.Context;
 using MyBlogNight.EntityLayer.Concrete;
@@ -10,20 +11,33 @@ namespace MyBlogNight.PresentationLayer.Controllers
     {
         private readonly IArticleService _articleService;
         private readonly INewsletterService _newsletterService;
-        public DefaultController(IArticleService articleService, INewsletterService newsletterService)
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
+
+        public DefaultController(IArticleService articleService, INewsletterService newsletterService, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
             _articleService = articleService;
             _newsletterService = newsletterService;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
         public IActionResult Index()
         {
             return View();
         }
-        public IActionResult MarkediaIndex(int page = 1)
+        public async Task<IActionResult> MarkediaIndex(int page = 1)
         {
             int pageSize = 6;
             var values = _articleService.TArticleListWithCategoryAndAppUser().ToPagedList(page, pageSize);
+            // Kullanıcı bilgisini al ve ViewData'ya ekle
+            var user = await _userManager.GetUserAsync(User);
+            ViewData["UserName"] = user != null ? user.UserName : null;
             return View(values);
+        }
+        public async Task<IActionResult> LogOut()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction(nameof(MarkediaIndex));  // Çıkış sonrası yönlendirme
         }
         public PartialViewResult PartialMarkediaHead()
         {
@@ -33,10 +47,15 @@ namespace MyBlogNight.PresentationLayer.Controllers
         {
             return PartialView();
         }
-        public PartialViewResult PartialMarkediaHeader()
+        public async Task<PartialViewResult> PartialMarkediaHeader()
         {
+            var user = await _userManager.GetUserAsync(User);
+            ViewData["UserName"] = user != null ? user.UserName : null; // TempData yerine ViewData kullanalım
             return PartialView();
         }
+
+
+
         public PartialViewResult PartialMarkediaSubscribe()
         {
             return PartialView();

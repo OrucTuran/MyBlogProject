@@ -23,7 +23,7 @@ namespace MyBlogNight.PresentationLayer.Controllers
             var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, false, true);
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Category");
+                return RedirectToAction("MarkediaIndex", "Default");
             }
             else
             {

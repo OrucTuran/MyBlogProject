@@ -1,4 +1,6 @@
-﻿<header class="market-header header">
+﻿<!--PartialMarkediaHeader-->
+
+<header class="market-header header">
     <div class="container-fluid">
         <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,15 +11,52 @@
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="~/markedia/markedia/marketing-index.html">Anasayfa</a>
-                    </li>             
+                    </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="marketing-blog.html">Blog Detay</a>
+                        <a class="nav-link" href="marketing-blog.html">Hakkımızda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="marketing-blog.html">Kategoriler</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="marketing-blog.html">Bloglar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="marketing-blog.html">İletişim</a>
                     </li>
                 </ul>
+
                 <form class="form-inline">
                     <input class="form-control mr-sm-2" type="text" placeholder="Bir şey mi arıyorsun?">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Ara</button>
                 </form>
+
+                <ul class="navbar-nav ml-auto d-flex align-items-center">
+                    <!-- d-flex ve align-items-center ekledik -->
+                    @if (User.Identity.IsAuthenticated && ViewData["UserName"] != null)
+                    {
+                        <li class="nav-item">
+                            <form asp-action="LogOut" method="post">
+                                <button class="btn btn-link my-2 my-sm-0" type="submit">
+                                    <i class="fas fa-sign-out-alt"></i> Çıkış Yap
+                                </button>
+                            </form>
+                        </li>
+                        <li class="nav-item">
+                            <span class="nav-link d-flex align-items-center">
+                                <i class="fas fa-user-circle mr-2"></i> @ViewData["UserName"]
+                            </span>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center" href="/Login/Index/">
+                                <i class="fas fa-user-circle mr-2"></i> Giriş Yap
+                            </a>
+                        </li>
+                    }
+                </ul>
             </div>
         </nav>
     </div><!-- end container-fluid -->
