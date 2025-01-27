@@ -104,7 +104,7 @@ namespace MyBlogNight.DataAccessLayer.EntityFramework
             //en cok goruntulenen ilk 5 makale
             var top5Articles = context.Articles
                 .OrderByDescending(a => a.ArticleViewCount)
-                .Take(5)
+                //.Take(5)
                 .Include(a => a.Category)
                 .Include(b => b.AppUser)
                 .Include(c => c.Comments)
