@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Form</title>
+    <title>Blogix - Giriş Yap</title>
     
     <!-- MATERIAL DESIGN ICONIC FONT -->
     <link rel="stylesheet" href="~/colorlib-regform-17/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
@@ -27,7 +27,7 @@
                 <img src="~/colorlib-regform-17/images/registration-form-1.jpg" alt="Login Form">
             </div>
             <form method="post">
-                <h3>GİRİŞ YAP</h3>
+                <h3>BLOGIX GİRİŞ YAP</h3>
                 <div class="form-wrapper">
                     <input type="text" placeholder="Kullanıcı Adınız" class="form-control" asp-for="Username">
                     <i class="zmdi zmdi-account"></i>
@@ -39,9 +39,18 @@
                 <button type="submit">Giriş Yap
                     <i class="zmdi zmdi-arrow-right"></i>
                 </button>
+                <div class="form-footer">
+                    <p>Hesabın yok mu? <a href="/Register/Index/">Kayıt Ol!</a></p>
+                </div>
             </form>
         </div>
     </div>
     
 </body>
 </html>
+<style>
+    .form-footer {
+        text-align: center; /* Ortalamak için */
+        margin-top: 20px; /* Formdan boşluk bırakmak için */
+    }
+</style>
