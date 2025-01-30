@@ -9,7 +9,24 @@ namespace MyBlogNight.PresentationLayer.Areas.Author.Controllers
         {
             return View();
         }
-        public PartialViewResult DashboardPartialHead()
+
+        public PartialViewResult PartialDashboardHead()
+        {
+            return PartialView();
+        }
+        public PartialViewResult PartialDashboardScripts()
+        {
+            return PartialView();
+        }
+        public PartialViewResult PartialDashboardFooter()
+        {
+            return PartialView();
+        }
+        public PartialViewResult PartialDashboardSidebar()
+        {
+            return PartialView();
+        }
+        public PartialViewResult PartialDashboardNavHeader()
         {
             return PartialView();
         }
