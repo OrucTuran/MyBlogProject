@@ -15,4 +15,8 @@
     <Folder Include="UnitOfWork\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Utils" Version="6.0.18" />
+  </ItemGroup>
+
 </Project>
