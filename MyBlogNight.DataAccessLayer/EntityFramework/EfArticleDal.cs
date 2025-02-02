@@ -119,5 +119,10 @@ namespace MyBlogNight.DataAccessLayer.EntityFramework
 
             return randomTwoArticles;
         }
+        public int GetTotalArticleViewCount()
+        {
+            var context = new BlogContext();
+            return context.Articles.Sum(a => a.ArticleViewCount ?? 0);
+        }
     }
 }
