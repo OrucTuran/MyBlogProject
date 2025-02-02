@@ -1,0 +1,35 @@
+﻿@model List<MyBlogNight.EntityLayer.Concrete.Comment>
+@{
+    Layout = null;
+}
+
+<div class="testimonial-widget-one owl-carousel owl-theme">
+    @foreach (var item in Model)
+    {
+        <div class="item">
+
+            <div class="testimonial-content">
+                <div class="testimonial-text">
+                    <i class="fa fa-quote-left"></i> @{
+                        string commentDetail = item.CommentDetail;
+                        if (commentDetail.Length > 260)
+                        {
+                            commentDetail = commentDetail.Substring(0, 260) + "...";
+                        }
+                    }
+                    @commentDetail
+                    <i class="fa fa-quote-right"></i>
+                </div>
+                <div class="media">
+                    <div class="media-body">
+                        <div class="testimonial-author">@item.Commenter</div>
+                        <div class="testimonial-author-position">
+                            @item.CommenterEmail
+                        </div>
+                    </div>
+                    <img class="testimonial-author-img ml-3" src="~/focus-2/images/avatar/1.png" alt="" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
