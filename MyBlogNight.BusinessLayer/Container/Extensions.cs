@@ -28,10 +28,13 @@ namespace MyBlogNight.BusinessLayer.Container
             services.AddScoped<ICommentService, CommentManager>();
 
             services.AddScoped<INewsletterDal, EfNewsletterDal>();
-            services.AddScoped<INewsletterService,NewsletterManager>();
+            services.AddScoped<INewsletterService, NewsletterManager>();
 
             services.AddScoped<ITagCloudService, TagCloudManager>();
             services.AddScoped<ITagCloudDal, EfTagCloudDal>(); // EfTagCloudDal sizin DAL sınıfınızdır.
+
+            services.AddScoped<IAppUserService, AppUserManager>();
+            services.AddScoped<IAppUserDal, EfAppUserDal>();
 
         }
     }
