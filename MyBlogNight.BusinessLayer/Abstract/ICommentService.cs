@@ -1,4 +1,5 @@
-﻿using MyBlogNight.EntityLayer.Concrete;
+﻿using MyBlogNight.DtoLayer.Dtos.CommentDtos;
+using MyBlogNight.EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace MyBlogNight.BusinessLayer.Abstract
     {
         public List<Comment> TGetCommentsByArticleId(int id);
         public List<Comment> TGetCommentsByAppUserId(int id);
+        List<DashboardPopulerMembersDTO> TGetMostActiveUsers();
     }
 }

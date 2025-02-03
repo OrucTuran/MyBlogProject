@@ -1,5 +1,6 @@
 ﻿using MyBlogNight.BusinessLayer.Abstract;
 using MyBlogNight.DataAccessLayer.Abstract;
+using MyBlogNight.DtoLayer.Dtos.CommentDtos;
 using MyBlogNight.EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,12 @@ namespace MyBlogNight.BusinessLayer.Concrete
         {
             return _commentDal.GetCommentsByArticleId(id);
         }
+
+        public List<DashboardPopulerMembersDTO> TGetMostActiveUsers()
+        {
+            return _commentDal.GetMostActiveUsers();
+        }
+
         public void TInsert(Comment entity)
         {
             _commentDal.Insert(entity);

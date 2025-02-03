@@ -2,6 +2,7 @@
 using MyBlogNight.DataAccessLayer.Abstract;
 using MyBlogNight.DataAccessLayer.Context;
 using MyBlogNight.DataAccessLayer.Repositories;
+using MyBlogNight.DtoLayer.Dtos.CommentDtos;
 using MyBlogNight.EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,23 @@ namespace MyBlogNight.DataAccessLayer.EntityFramework
             var context = new BlogContext();
             var values = context.Comments.Where(x => x.ArticleId == id).Include(y => y.AppUser).ToList();
             return values;
+        }
+
+        public List<DashboardPopulerMembersDTO> GetMostActiveUsers()
+        {
+            using (var context = new BlogContext())
+            {
+                return context.Comments
+                    .GroupBy(c => c.AppUserId)
+                    .Select(group => new DashboardPopulerMembersDTO
+                    {
+                        AppUserId = group.Key,
+                        UserName = context.Users.Where(u => u.Id == group.Key).Select(u => u.UserName).FirstOrDefault(),
+                        CommentCount = group.Count()
+                    })
+                    .OrderByDescending(u => u.CommentCount)
+                    .ToList();
+            }
         }
     }
 }
