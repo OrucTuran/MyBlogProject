@@ -1,0 +1,41 @@
+﻿@using Humanizer
+@model List<MyBlogNight.EntityLayer.Concrete.Comment>
+@{
+    Layout = null;
+    List<string> abc = new List<string>
+    {
+        "timeline-badge primary",
+        "timeline-badge warning",
+        "timeline-badge danger",
+        "timeline-badge success",
+        "timeline-badge dark",
+        "timeline-badge info"
+    };
+
+}
+
+<div class="col-lg-6 col-xl-4 col-xxl-6 col-md-6">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Son Gelen Yorumlar</h4>
+        </div>
+        <div class="card-body">
+            <div class="widget-timeline">
+                <ul class="timeline">
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        var comment = Model[i];
+                        var badgeClass = abc[i % abc.Count];
+                        <li>
+                            <div class="@badgeClass"></div>
+                            <a class="timeline-panel text-muted" href="#">
+                                <span>@comment.CreatedDate.Humanize()</span>
+                                <h6 class="m-t-5">@comment.CommentDetail.Truncate(100, "...")</h6>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

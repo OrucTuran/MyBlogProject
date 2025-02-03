@@ -3,17 +3,17 @@ using MyBlogNight.BusinessLayer.Abstract;
 
 namespace MyBlogNight.PresentationLayer.ViewComponents
 {
-    public class _DefaultDashboardSelectiveComments : ViewComponent
+    public class _DefaultDashboardLatestComments:ViewComponent
     {
         private readonly ICommentService _commentService;
 
-        public _DefaultDashboardSelectiveComments(ICommentService commentService)
+        public _DefaultDashboardLatestComments(ICommentService commentService)
         {
             _commentService = commentService;
         }
         public IViewComponentResult Invoke()
         {
-            var values = _commentService.TGetAll().Take(8).ToList();
+            var values = _commentService.TGetAll();
             return View(values);
         }
     }
