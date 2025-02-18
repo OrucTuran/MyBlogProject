@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
@@ -7,14 +6,14 @@
 <div class="content-body">
     <!-- row -->
     <div class="container-fluid">
-       
+
         @await Component.InvokeAsync("_DefaultDashboardArticleCategoryCommentAuthorCount")
 
         <div class="row">
             <div class="col-xl-8 col-lg-8 col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Sales Overview/Yazı-Yorum Sayısı</h4>
+                        <h4 class="card-title">Bloglara Gelen Yorum Sayıları</h4>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -25,6 +24,12 @@
                     </div>
                 </div>
             </div>
+
+           
+
+
+            @* @await Component.InvokeAsync("_DefaultDashboardBlogOverviewGraph") *@
+
             @await Component.InvokeAsync("_DefaultDashboardTotalArticleViewCount")
         </div>
         <div class="row">
@@ -135,14 +140,14 @@
                     </div>
                 </div>
             </div>
-                @await Component.InvokeAsync("_DefaultDashboardPopulerMembers")
+            @await Component.InvokeAsync("_DefaultDashboardPopulerMembers")
         </div>
         <div class="row">
             @await Component.InvokeAsync("_DefaultDashboardLatestComments")
             <div class="col-xl-4 col-xxl-6 col-lg-6 col-md-6 col-sm-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Todo-Türkçeleştir</h4>
+                        <h4 class="card-title">Todo-Listesi</h4>
                     </div>
                     <div class="card-body px-0">
                         <div class="todo-list">
@@ -151,48 +156,38 @@
                                     <ul id="todo_list">
                                         <li>
                                             <label>
-                                                <input type="checkbox"><i></i><span>Get up</span><a href='#'
-                                                                                                    class="ti-trash"></a>
+                                                <input type="checkbox"><i></i><span>Yeni Kategori Ekle</span><a href='#' class="ti-trash"></a>
                                             </label>
                                         </li>
                                         <li>
                                             <label>
-                                                <input type="checkbox" checked><i></i><span>Stand up</span><a href='#' class="ti-trash"></a>
+                                                <input type="checkbox" checked><i></i><span>Bloğu Güncelle</span><a href='#' class="ti-trash"></a>
                                             </label>
                                         </li>
                                         <li>
                                             <label>
-                                                <input type="checkbox"><i></i><span>
-                                                    Don't give up the
-                                                    fight.
-                                                </span><a href='#' class="ti-trash"></a>
+                                                <input type="checkbox"><i></i><span>Profil Yazısı Ekle</span><a href='#' class="ti-trash"></a>
                                             </label>
                                         </li>
                                         <li>
                                             <label>
-                                                <input type="checkbox" checked><i></i><span>
-                                                    Do something
-                                                    else
-                                                </span><a href='#' class="ti-trash"></a>
+                                                <input type="checkbox" checked><i></i><span>Yorumları İncele</span><a href='#' class="ti-trash"></a>
                                             </label>
                                         </li>
                                         <li>
                                             <label>
-                                                <input type="checkbox" checked><i></i><span>Stand up</span><a href='#' class="ti-trash"></a>
+                                                <input type="checkbox" checked><i></i><span>Yeni Kategori Ekle</span><a href='#' class="ti-trash"></a>
                                             </label>
                                         </li>
                                         <li>
                                             <label>
-                                                <input type="checkbox"><i></i><span>
-                                                    Don't give up the
-                                                    fight.
-                                                </span><a href='#' class="ti-trash"></a>
+                                                <input type="checkbox"><i></i><span>Bloğu Güncelle</span><a href='#' class="ti-trash"></a>
                                             </label>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="px-4">
-                                    <input type="text" class="tdl-new form-control" placeholder="Write new item and hit 'Enter'...">
+                                    <input type="text" class="tdl-new form-control" placeholder="Yeni öğe yazın ve 'Enter'a basın...">
                                 </div>
                             </div>
                         </div>
@@ -204,16 +199,6 @@
                     <div class="card-header">
                         <h4 class="card-title">Yazılarım-Yorum Sayısı</h4>
                         <div class="card-action">
-                            <div class="dropdown custom-dropdown">
-                                <div data-toggle="dropdown">
-                                    <i class="ti-more-alt"></i>
-                                </div>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#">Option 1</a>
-                                    <a class="dropdown-item" href="#">Option 2</a>
-                                    <a class="dropdown-item" href="#">Option 3</a>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div class="card-body">
@@ -233,14 +218,14 @@
                             <div class="row">
                                 <div class="col-6 border-right">
                                     <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                        <h4 class="m-1"><span class="counter">89</span> k</h4>
-                                        <p class="m-0">Friends</p>
+                                        <h4 class="m-1"><span class="counter">89</span> b</h4>
+                                        <p class="m-0">Arkadaş</p>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                        <h4 class="m-1"><span class="counter">119</span> k</h4>
-                                        <p class="m-0">Followers</p>
+                                        <h4 class="m-1"><span class="counter">119</span> b</h4>
+                                        <p class="m-0">Takipçi</p>
                                     </div>
                                 </div>
                             </div>
@@ -254,14 +239,14 @@
                             <div class="row">
                                 <div class="col-6 border-right">
                                     <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                        <h4 class="m-1"><span class="counter">89</span> k</h4>
-                                        <p class="m-0">Friends</p>
+                                        <h4 class="m-1"><span class="counter">89</span> b</h4>
+                                        <p class="m-0">Arkadaş</p>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                        <h4 class="m-1"><span class="counter">119</span> k</h4>
-                                        <p class="m-0">Followers</p>
+                                        <h4 class="m-1"><span class="counter">119</span> b</h4>
+                                        <p class="m-0">Takipçi</p>
                                     </div>
                                 </div>
                             </div>
@@ -275,14 +260,14 @@
                             <div class="row">
                                 <div class="col-6 border-right">
                                     <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                        <h4 class="m-1"><span class="counter">89</span> k</h4>
-                                        <p class="m-0">Friends</p>
+                                        <h4 class="m-1"><span class="counter">89</span> b</h4>
+                                        <p class="m-0">Arkadaş</p>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                        <h4 class="m-1"><span class="counter">119</span> k</h4>
-                                        <p class="m-0">Followers</p>
+                                        <h4 class="m-1"><span class="counter">119</span> b</h4>
+                                        <p class="m-0">Takipçi</p>
                                     </div>
                                 </div>
                             </div>
@@ -296,14 +281,14 @@
                             <div class="row">
                                 <div class="col-6 border-right">
                                     <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                        <h4 class="m-1"><span class="counter">89</span> k</h4>
-                                        <p class="m-0">Friends</p>
+                                        <h4 class="m-1"><span class="counter">89</span> b</h4>
+                                        <p class="m-0">Arkadaş</p>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                        <h4 class="m-1"><span class="counter">119</span> k</h4>
-                                        <p class="m-0">Followers</p>
+                                        <h4 class="m-1"><span class="counter">119</span> b</h4>
+                                        <p class="m-0">Takipçi</p>
                                     </div>
                                 </div>
                             </div>

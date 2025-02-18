@@ -1,6 +1,7 @@
 ﻿using MyBlogNight.BusinessLayer.Abstract;
 using MyBlogNight.DataAccessLayer.Abstract;
 using MyBlogNight.DtoLayer.Dtos.ArticleDtos;
+using MyBlogNight.DtoLayer.Dtos.DashboardDtos;
 using MyBlogNight.EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -55,6 +56,11 @@ namespace MyBlogNight.BusinessLayer.Concrete
             return _articleDal.GetArticlesByViewCount();
         }
 
+        public List<BlogCommentGraphDTO> TGetBlogOverview()
+        {
+            return _articleDal.GetBlogOverview();
+        }
+
         public Article TGetById(int id)
         {
             return _articleDal.GetById(id);
@@ -62,12 +68,12 @@ namespace MyBlogNight.BusinessLayer.Concrete
 
         public List<CategoryWithArticleCount> TGetCategoriesWithArticleCount()
         {
-           return _articleDal.GetCategoriesWithArticleCount();
+            return _articleDal.GetCategoriesWithArticleCount();
         }
 
         public List<Article> TGetRandomTwoTop5ViewedArticles()
         {
-           return _articleDal.GetRandomTwoTop5ViewedArticles();
+            return _articleDal.GetRandomTwoTop5ViewedArticles();
         }
 
         public int TGetTotalArticleViewCount()

@@ -3,6 +3,7 @@ using MyBlogNight.DataAccessLayer.Abstract;
 using MyBlogNight.DataAccessLayer.Context;
 using MyBlogNight.DataAccessLayer.Repositories;
 using MyBlogNight.DtoLayer.Dtos.ArticleDtos;
+using MyBlogNight.DtoLayer.Dtos.DashboardDtos;
 using MyBlogNight.EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -123,6 +124,17 @@ namespace MyBlogNight.DataAccessLayer.EntityFramework
         {
             var context = new BlogContext();
             return context.Articles.Sum(a => a.ArticleViewCount ?? 0);
+        }
+
+        public List<BlogCommentGraphDTO> GetBlogOverview()
+        {
+            var context = new BlogContext();
+
+            return context.Articles.Select(x => new BlogCommentGraphDTO
+            {
+                BlogTitle = x.Title,
+                CommentCount = x.Comments.Count
+            }).ToList();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MyBlogNight.DtoLayer.Dtos.ArticleDtos;
+using MyBlogNight.DtoLayer.Dtos.DashboardDtos;
 using MyBlogNight.EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -20,5 +21,6 @@ namespace MyBlogNight.DataAccessLayer.Abstract
         public List<Article> GetRandomTwoTop5ViewedArticles();
         Article GetArticleWithCategory(int id);
         int GetTotalArticleViewCount();
+        public List<BlogCommentGraphDTO> GetBlogOverview();
     }
 }

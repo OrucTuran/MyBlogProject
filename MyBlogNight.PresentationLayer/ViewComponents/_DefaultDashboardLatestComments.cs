@@ -13,7 +13,7 @@ namespace MyBlogNight.PresentationLayer.ViewComponents
         }
         public IViewComponentResult Invoke()
         {
-            var values = _commentService.TGetAll();
+            var values = _commentService.TGetAll().OrderByDescending(x=>x.CreatedDate).ToList();
             return View(values);
         }
     }

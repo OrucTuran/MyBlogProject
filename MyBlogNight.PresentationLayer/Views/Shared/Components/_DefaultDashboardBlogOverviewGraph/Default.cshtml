@@ -1,0 +1,88 @@
+﻿@model List<MyBlogNight.DtoLayer.Dtos.DashboardDtos.BlogCommentGraphDTO>
+
+<div class="col-xl-8 col-lg-8 col-md-8">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Yazı ve Yorum Sayısı</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-xl-12 col-lg-8">
+                    <canvas id="myBarChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chart.js Kütüphanesini Dahil Edin -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script><!-- Morris.js ve jQuery kütüphanelerini dahil edin -->
+
+<script>
+    $(document).ready(function () {
+        // Razor View'dan gelen verileri JavaScript objesine aktaralım
+        var data = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
+
+        // Grafik için gerekli veri setini oluşturuyoruz
+        var labels = data.map(function (item) { return item.BlogTitle; });
+        var commentCounts = data.map(function (item) { return item.CommentCount; });
+
+        // Bar grafiği başlatmak
+        var ctx = document.getElementById('myBarChart').getContext('2d');
+        var myBarChart = new Chart(ctx, {
+            type: 'bar', // Grafik türü (bar grafik)
+            data: {
+                labels: labels, // X eksenindeki etiketler (makale başlıkları)
+                datasets: [{
+                    label: 'Yorum Sayısı', // Y ekseninde gösterilen etiket
+                    data: commentCounts, // Yorum sayıları
+                    backgroundColor: '#5873FE', // Çubuk renkleri
+                    borderColor: '#343957', // Çubuk kenar çizgisi rengi
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true, // Grafik duyarlı (responsive) olacak
+                scales: {
+                    x: {
+                        beginAtZero: true, // X ekseninin sıfırdan başlaması
+                        title: {
+                            display: true,
+                            text: 'Makale Başlıkları' // X ekseninin başlığı
+                        },
+                        ticks: {
+                            autoSkip: false, // Etiketlerin kesilmesini engelle
+                            maxRotation: 45, // Etiketlerin maksimum dönüş açısı
+                            minRotation: 45 // Etiketlerin minimum dönüş açısı
+                        }
+                    },
+                    y: {
+                        beginAtZero: true, // Y ekseninin sıfırdan başlaması
+                        title: {
+                            display: true,
+                            text: 'Yorum Sayısı' // Y ekseninin başlığı
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false // Efsaneği gizle
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+<style>
+    #myBarChart {
+        height: 300px; /* Grafik yüksekliği */
+        width: 100%; /* Grafik genişliği */
+        max-width: 100%; /* Ekranın genişliğine göre boyutlandırma */
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+</style>

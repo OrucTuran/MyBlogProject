@@ -4,45 +4,40 @@
 
 
     // Morris bar chart
-    Morris.Bar({
-        element: 'morris-bar-chart',
-        data: [{
-            y: '2006',
-            a: 100,
-            b: 90
-        }, {
-            y: '2007',
-            a: 75,
-            b: 65
-        }, {
-            y: '2008',
-            a: 50,
-            b: 40
-        }, {
-            y: '2009',
-            a: 75,
-            b: 65
-        }, {
-            y: '2010',
-            a: 50,
-            b: 40
-        }, {
-            y: '2011',
-            a: 75,
-            b: 65
-        }, {
-            y: '2012',
-            a: 100,
-            b: 90
-        }],
-        xkey: 'y',
-        ykeys: ['a', 'b'],
-        labels: ['A', 'B'],
-        barColors: ['#343957', '#5873FE'],
-        hideHover: 'auto',
-        gridLineColor: '#eef0f2',
-        resize: true
+    $.ajax({
+        url: "/Author/Dashboard/DashboardBarChart",
+        method: "GET",
+        success: function (response) {
+            if (!response || response.length === 0) {
+                console.log("Grafik için yeterli veri yok.");
+                return;
+            }
+
+            // JSON verisini Morris.js'e uygun hale getir
+            let formattedData = response.map(item => ({
+                y: item.blogTitle.length > 20 ? item.blogTitle.substring(0, 20) + "..." : item.blogTitle,     // X ekseni (Blog baþlýðý)
+                a: item.commentCount    // Y ekseni (Yorum sayýsý)
+            }));
+
+            // Morris.js grafik çizimi
+            Morris.Bar({
+                element: 'morris-bar-chart', // HTML'deki div ID
+                data: formattedData,  // Backend'den gelen veri
+                xkey: 'y',  // X ekseni (blog baþlýklarý)
+                ykeys: ['a'],  // Y ekseni (yorum sayýsý)
+                labels: ['Yorum Sayisi'],
+                hideHover: 'auto',
+                gridLineColor: '#eef0f2',
+                resize: true,
+                barColors: ['#3498db'], // Çubuk rengi (isteðe baðlý)
+                xLabelAngle: 270
+            });
+        },
+        error: function (error) {
+            console.log("Grafik verileri yüklenirken hata oluþtu:", error);
+        }
     });
+
 
     $('#info-circle-card').circleProgress({
         value: 0.70,
