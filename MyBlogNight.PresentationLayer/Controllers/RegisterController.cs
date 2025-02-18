@@ -28,8 +28,8 @@ namespace MyBlogNight.PresentationLayer.Controllers
                 Email = model.Email,
                 Surname = model.Surname,
                 UserName = model.Username,
-                ImageUrl = "test"//,
-                //isAdmin = model.isAdmin
+                isAuthor = false,
+                ImageUrl = "test"
             };
             var result = await _userManager.CreateAsync(appUser, model.Password);
 
@@ -39,7 +39,7 @@ namespace MyBlogNight.PresentationLayer.Controllers
             }
             else
             {
-                foreach(var item in result.Errors)
+                foreach (var item in result.Errors)
                 {
                     ModelState.AddModelError("", item.Description);
                 }
