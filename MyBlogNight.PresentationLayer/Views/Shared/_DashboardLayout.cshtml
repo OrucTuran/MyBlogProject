@@ -1,4 +1,4 @@
-﻿
+﻿@* Dashboard Layout *@
 @{
     Layout = null;
 }
@@ -10,24 +10,17 @@
 
 <body>
 
-    <div id="preloader">
-        <div class="sk-three-bounce">
-            <div class="sk-child sk-bounce1"></div>
-            <div class="sk-child sk-bounce2"></div>
-            <div class="sk-child sk-bounce3"></div>
-        </div>
-    </div>
-
     <div id="main-wrapper">
 
         @await Html.PartialAsync("PartialDashboardNavHeader")
 
         @await Component.InvokeAsync("_DefaultDashboardHeaderNotifications")
- 
+       
         @await Html.PartialAsync("PartialDashboardSidebar")
-
+     
+        <div class="col-md-10 content-body">
         @RenderBody()
-
+        </div>
         @await Html.PartialAsync("PartialDashboardFooter")
    
     </div>
