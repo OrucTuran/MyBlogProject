@@ -15,7 +15,7 @@ namespace MyBlogNight.PresentationLayer.Areas.Author.Controllers
             _articleService = articleService;
             _userManager = userManager;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index() //GIRIS YAPAN KULLANICININ YAZILARI LISTELENIYOR
         {
             var userValue = await _userManager.FindByNameAsync(User.Identity.Name);
             var values = _articleService.TGetArticlesByAppUserId(userValue.Id);
