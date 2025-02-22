@@ -63,6 +63,11 @@ namespace MyBlogNight.PresentationLayer.Controllers
             ModelState.AddModelError("", "Giriş başarısız.");
             return View();
         }
+        public async Task<IActionResult> LogOut()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
 /*

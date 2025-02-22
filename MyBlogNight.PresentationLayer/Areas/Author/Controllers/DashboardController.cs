@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using MyBlogNight.BusinessLayer.Abstract;
+using MyBlogNight.EntityLayer.Concrete;
 
 namespace MyBlogNight.PresentationLayer.Areas.Author.Controllers
 {
@@ -7,10 +9,12 @@ namespace MyBlogNight.PresentationLayer.Areas.Author.Controllers
     public class DashboardController : Controller
     {
         private readonly IArticleService _articleService;
+        private readonly SignInManager<AppUser> _signInManager;
 
-        public DashboardController(IArticleService articleService)
+        public DashboardController(IArticleService articleService, SignInManager<AppUser> signInManager)
         {
             _articleService = articleService;
+            _signInManager = signInManager;
         }
 
         public IActionResult Index()
@@ -38,7 +42,7 @@ namespace MyBlogNight.PresentationLayer.Areas.Author.Controllers
             }
             return Json(blogOverviewByAuthor);
         }
-
+        
         public PartialViewResult PartialDashboardHead()
         {
             return PartialView();
