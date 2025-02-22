@@ -61,6 +61,11 @@ namespace MyBlogNight.BusinessLayer.Concrete
             return _articleDal.GetBlogOverview();
         }
 
+        public List<BlogCommentGraphDTO> TGetBlogOverviewByAuthor(int userId)
+        {
+            return _articleDal.GetBlogOverviewByAuthor(userId);
+        }
+
         public Article TGetById(int id)
         {
             return _articleDal.GetById(id);

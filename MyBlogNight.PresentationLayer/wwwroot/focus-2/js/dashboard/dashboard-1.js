@@ -1,7 +1,5 @@
-(function($) {
+(function ($) {
     "use strict";
-
-
 
     // Morris bar chart
     $.ajax({
@@ -15,13 +13,13 @@
 
             // JSON verisini Morris.js'e uygun hale getir
             let formattedData = response.map(item => ({
-                y: item.blogTitle.length > 20 ? item.blogTitle.substring(0, 20) + "..." : item.blogTitle,     // X ekseni (Blog baþlýðý)
-                a: item.commentCount    // Y ekseni (Yorum sayýsý)
+                y: item.blogTitle.length > 20 ? item.blogTitle.substring(0, 20) + "..." : item.blogTitle,  // X ekseni (Blog baþlýðý)
+                a: item.commentCount  // Y ekseni (Yorum sayýsý)
             }));
 
-            // Morris.js grafik çizimi
+            // Morris.js Bar Chart'ý çiz
             Morris.Bar({
-                element: 'morris-bar-chart', // HTML'deki div ID
+                element: 'morris-bar-chart',  // HTML'deki div ID
                 data: formattedData,  // Backend'den gelen veri
                 xkey: 'y',  // X ekseni (blog baþlýklarý)
                 ykeys: ['a'],  // Y ekseni (yorum sayýsý)
@@ -29,15 +27,45 @@
                 hideHover: 'auto',
                 gridLineColor: '#eef0f2',
                 resize: true,
-                barColors: ['#3498db'], // Çubuk rengi (isteðe baðlý)
+                barColors: ['#3498db'],  // Çubuk rengi (isteðe baðlý)
                 xLabelAngle: 270
+            });
+
+            // Pie chart için veriyi uygun formata çevir
+            let labels = formattedData.map(item => item.y);  // Blog baþlýklarý
+            let data = formattedData.map(item => item.a);  // Yorum sayýlarý
+            let colors = generateColors(data.length);  // Dinamik renkleri oluþtur
+
+            // Pie chart verisi
+            let pieChartData = {
+                labels: labels,
+                datasets: [{
+                    data: data,
+                    backgroundColor: colors.backgroundColor,
+                    hoverBackgroundColor: colors.hoverBackgroundColor,
+                    borderWidth: 0
+                }]
+            };
+
+            // Pie chart'ý oluþtur
+            var nk = document.getElementById("sold-product");  // Canvas ID'si
+            new Chart(nk, {
+                type: 'pie',
+                data: pieChartData,
+                options: {
+                    responsive: true,
+                    legend: {
+                        display: true,  // Legend'ý göster
+                        position: 'top'
+                    },
+                    maintainAspectRatio: false
+                }
             });
         },
         error: function (error) {
             console.log("Grafik verileri yüklenirken hata oluþtu:", error);
         }
     });
-
 
     $('#info-circle-card').circleProgress({
         value: 0.70,
@@ -51,7 +79,6 @@
         singleItem: true,
         loop: true,
         autoplay: false,
-        //        rtl: true,
         autoplayTimeout: 2500,
         autoplayHoverPause: true,
         margin: 10,
@@ -79,62 +106,68 @@
         color: 'rgb(88, 115, 254)',
         enableZoom: true,
         hoverColor: 'rgba(88, 115, 254)',
-        hoverOpacity: null,
         normalizeFunction: 'linear',
         scaleColors: ['#b6d6ff', '#005ace'],
         selectedColor: 'rgba(88, 115, 254, 0.9)',
         selectedRegions: null,
-        showTooltip: true,
-        // onRegionClick: function(element, code, region) {
-        //     var message = 'You clicked "' +
-        //         region +
-        //         '" which has the code: ' +
-        //         code.toUpperCase();
-
-        //     alert(message);
-        // }
+        showTooltip: true
     });
 
-    var nk = document.getElementById("sold-product");
-    // nk.height = 50
-    new Chart(nk, {
-        type: 'pie',
-        data: {
-            defaultFontFamily: 'Poppins',
-            datasets: [{
-                data: [45, 25, 20, 10],
-                borderWidth: 0,
-                backgroundColor: [
-                    "rgba(89, 59, 219, .9)",
-                    "rgba(89, 59, 219, .7)",
-                    "rgba(89, 59, 219, .5)",
-                    "rgba(89, 59, 219, .07)"
-                ],
-                hoverBackgroundColor: [
-                    "rgba(89, 59, 219, .9)",
-                    "rgba(89, 59, 219, .7)",
-                    "rgba(89, 59, 219, .5)",
-                    "rgba(89, 59, 219, .07)"
-                ]
+    const wt = new PerfectScrollbar('.widget-todo');
+    const wtl = new PerfectScrollbar('.widget-timeline');
 
-            }],
-            labels: [
-                "one",
-                "two",
-                "three",
-                "four"
-            ]
-        },
-        options: {
-            responsive: true,
-            legend: false,
-            maintainAspectRatio: false
+    // Dinamik renk üretme fonksiyonu
+    function generateColors(count) {
+        let backgroundColor = [];
+        let hoverBackgroundColor = [];
+
+        // Örnek olarak her veri için bir renk üret
+        for (let i = 0; i < count; i++) {
+            let color = getRandomColor();  // Rastgele renk
+            backgroundColor.push(color);
+            hoverBackgroundColor.push(adjustColorBrightness(color, 0.2));  // Hover rengi için parlaklýk deðiþimi
         }
-    });
 
+        return {
+            backgroundColor: backgroundColor,
+            hoverBackgroundColor: hoverBackgroundColor
+        };
+    }
 
+    // Rastgele renk üretme fonksiyonu
+    function getRandomColor() {
+        let letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    // Rengin parlaklýðýný deðiþtiren fonksiyon (hover rengi için)
+    function adjustColorBrightness(color, factor) {
+        let colorRGB = hexToRgb(color);
+        colorRGB.r = Math.min(255, colorRGB.r + factor * 255);
+        colorRGB.g = Math.min(255, colorRGB.g + factor * 255);
+        colorRGB.b = Math.min(255, colorRGB.b + factor * 255);
+        return rgbToHex(colorRGB.r, colorRGB.g, colorRGB.b);
+    }
+
+    // Hex rengini RGB'ye dönüþtüren fonksiyon
+    function hexToRgb(hex) {
+        let r = parseInt(hex.slice(1, 3), 16);
+        let g = parseInt(hex.slice(3, 5), 16);
+        let b = parseInt(hex.slice(5, 7), 16);
+        return { r: r, g: g, b: b };
+    }
+
+    // RGB'yi Hex'e dönüþtüren fonksiyon
+    function rgbToHex(r, g, b) {
+        return '#' + (1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1).toUpperCase();
+    }
 
 })(jQuery);
+
 
 (function($) {
     "use strict";

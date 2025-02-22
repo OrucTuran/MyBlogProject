@@ -136,5 +136,17 @@ namespace MyBlogNight.DataAccessLayer.EntityFramework
                 CommentCount = x.Comments.Count
             }).ToList();
         }
+        public List<BlogCommentGraphDTO> GetBlogOverviewByAuthor(int userId)
+        {
+            var context = new BlogContext();
+
+            return context.Articles
+                .Where(x => x.AppUserId == userId)
+                .Select(x => new BlogCommentGraphDTO
+                {
+                    BlogTitle = x.Title,
+                    CommentCount = x.Comments.Count
+                }).ToList();
+        }
     }
 }

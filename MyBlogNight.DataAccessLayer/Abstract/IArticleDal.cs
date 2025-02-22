@@ -22,5 +22,6 @@ namespace MyBlogNight.DataAccessLayer.Abstract
         Article GetArticleWithCategory(int id);
         int GetTotalArticleViewCount();
         public List<BlogCommentGraphDTO> GetBlogOverview();
+        public List<BlogCommentGraphDTO> GetBlogOverviewByAuthor(int userId);
     }
 }

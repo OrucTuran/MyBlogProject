@@ -28,6 +28,16 @@ namespace MyBlogNight.PresentationLayer.Areas.Author.Controllers
 
             return Json(blogOverView);
         }
+        public IActionResult DashboardPieChartByAuthor(int authorId)
+        {
+            var blogOverviewByAuthor = _articleService.TGetBlogOverviewByAuthor(authorId);
+
+            if (blogOverviewByAuthor == null || !blogOverviewByAuthor.Any())
+            {
+                return Json(new { success = false, message = "Veri Bulunamadı" });
+            }
+            return Json(blogOverviewByAuthor);
+        }
 
         public PartialViewResult PartialDashboardHead()
         {

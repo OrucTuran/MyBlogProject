@@ -21,5 +21,6 @@ namespace MyBlogNight.BusinessLayer.Abstract
         public List<Article> TGetRandomTwoTop5ViewedArticles();
         public int TGetTotalArticleViewCount();
         public List<BlogCommentGraphDTO> TGetBlogOverview();
+        public List<BlogCommentGraphDTO> TGetBlogOverviewByAuthor(int userId);
     }
 }

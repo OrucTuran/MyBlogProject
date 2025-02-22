@@ -10,13 +10,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blogix - Giriş Yap</title>
-    
+    <title>Blogix Yazar Paneli - Giriş Yap</title>
+
     <!-- MATERIAL DESIGN ICONIC FONT -->
     <link rel="stylesheet" href="~/colorlib-regform-17/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
 
     <!-- STYLE CSS -->
     <link rel="stylesheet" href="~/colorlib-regform-17/css/style.css">
+
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
 <body>
 
@@ -27,7 +30,7 @@
                 <img src="~/colorlib-regform-17/images/registration-form-1.jpg" alt="Login Form">
             </div>
             <form method="post">
-                <h3>KULLANICI GİRİŞ PANELİ</h3>
+                <h3>YAZAR GİRİŞ PANELİ</h3>
                 <div class="form-wrapper">
                     <input type="text" placeholder="Kullanıcı Adınız" class="form-control" asp-for="Username" required>
                     <i class="zmdi zmdi-account"></i>
@@ -36,12 +39,10 @@
                     <input type="password" placeholder="Şifreniz" class="form-control" asp-for="Password" required>
                     <i class="zmdi zmdi-lock"></i>
                 </div>
-                <button type="submit">Giriş Yap
+                <button type="submit">
+                    Giriş Yap
                     <i class="zmdi zmdi-arrow-right"></i>
                 </button>
-                <div class="form-footer">
-                    <p>Hesabın yok mu? <a href="/Register/Index/">Kayıt Ol!</a></p>
-                </div>
                 <div class="form-footer">
                     <p>&#8203;</p>
                 </div>
@@ -67,12 +68,28 @@
                     <p>&#8203;</p>
                 </div>
                 <div class="author-login">
-                    <a href="/Login/AuthorIndex">Yazar Paneli Girişi İçin Tıklayınız</a>
+                    <a href="/Login/Index">Kullanıcı Girişi İçin Tıklayınız</a>
                 </div>
             </form>
         </div>
     </div>
-    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        @if (!string.IsNullOrEmpty(ViewBag.abc as string))
+        {
+            var encodeMessage = System.Text.Encodings.Web.JavaScriptEncoder.Default.Encode(ViewBag.abc);
+            <text>
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Uyarı',
+                        text: '@Html.Raw(encodeMessage)',
+                        confirmButtonText: 'Tamam',
+                        confirmButtonColor: '#d33'
+                    });
+            </text>
+        }
+    </script>
 </body>
 </html>
 <style>
