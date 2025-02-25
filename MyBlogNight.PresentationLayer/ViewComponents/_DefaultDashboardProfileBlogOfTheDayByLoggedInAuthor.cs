@@ -18,7 +18,7 @@ namespace MyBlogNight.PresentationLayer.ViewComponents
         public IViewComponentResult Invoke()
         {
             var userValue = _userManager.FindByNameAsync(User.Identity.Name);
-            var values = _articleService.TGetArticlesByAppUserId(userValue.Id).Take(1).ToList();
+            var values = _articleService.TGetArticlesByAppUserId(userValue.Id).ToList();
             return View(values);
 
         }
