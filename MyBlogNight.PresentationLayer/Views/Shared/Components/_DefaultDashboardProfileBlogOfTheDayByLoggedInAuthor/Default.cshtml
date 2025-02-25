@@ -1,0 +1,15 @@
+﻿@model List<MyBlogNight.EntityLayer.Concrete.Article>
+@{
+    Layout = null;
+}
+
+<div class="profile-blog pt-3 border-bottom-1 pb-1">
+    <h5 class="text-primary d-inline">Günün Bloğu</h5>
+    @foreach (var item in Model)
+    {
+        <img src="@item.CoverImageUrl" alt="" class="img-fluid mt-4 mb-4 w-100">
+        <h4>@item.Title</h4>
+        <p>@item.Detail.Substring(0,200)...</p>
+    }
+
+</div>

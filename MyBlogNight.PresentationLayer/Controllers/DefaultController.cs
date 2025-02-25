@@ -54,8 +54,6 @@ namespace MyBlogNight.PresentationLayer.Controllers
             return PartialView();
         }
 
-
-
         public PartialViewResult PartialMarkediaSubscribe()
         {
             return PartialView();
