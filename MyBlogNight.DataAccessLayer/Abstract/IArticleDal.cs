@@ -16,6 +16,7 @@ namespace MyBlogNight.DataAccessLayer.Abstract
         Article ArticleListWithCategoryAndAppUserByArticleId(int id); 
         void ArticleViewCountIncrease(int id);
         List<Article> GetArticlesByAppUserId(int id);
+        public Task<List<Article>> GetArticlesByAppUserIdAsync(int id);
         public List<CategoryWithArticleCount> GetCategoriesWithArticleCount();
         public List<Article> GetArticlesByViewCount();
         public List<Article> GetRandomTwoTop5ViewedArticles();
@@ -23,5 +24,6 @@ namespace MyBlogNight.DataAccessLayer.Abstract
         int GetTotalArticleViewCount();
         public List<BlogCommentGraphDTO> GetBlogOverview();
         public List<BlogCommentGraphDTO> GetBlogOverviewByAuthor(int userId);
+        public GetDashboardProfileStatisticsByAuthorDTO GetDashboardProfileStatisticsByAuthor(int authorId);
     }
 }

@@ -59,17 +59,19 @@
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-body">
+
+                    @* @await Component.InvokeAsync("_DefaultDashboardProfileBlogStatisticsByLoggedInAuthor") *@
                     <div class="profile-statistics">
                         <div class="text-center mt-4 border-bottom-1 pb-3">
                             <div class="row">
                                 <div class="col">
-                                    <h3 class="m-b-0">150</h3><span>Blog Yazısı</span>
+                                    <h3 class="m-b-0">@ViewBag.TotalArticles</h3><span>Blog Yazısı</span>
                                 </div>
                                 <div class="col">
-                                    <h3 class="m-b-0">140</h3><span>Gelen Yorum</span>
+                                    <h3 class="m-b-0">@ViewBag.TotalComments</h3><span>Toplam Yorum</span>
                                 </div>
                                 <div class="col">
-                                    <h3 class="m-b-0">45</h3><span>Görüntülenme</span>
+                                    <h3 class="m-b-0">@ViewBag.TotalViews</h3><span>Toplam Görüntülenme</span>
                                 </div>
                             </div>
                         </div>

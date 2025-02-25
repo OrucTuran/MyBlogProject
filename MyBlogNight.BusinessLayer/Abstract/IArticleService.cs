@@ -16,11 +16,13 @@ namespace MyBlogNight.BusinessLayer.Abstract
         public Article TArticleListWithCategoryAndAppUserByArticleId(int id);
         public void TArticleViewCountIncrease(int id);
         public List<Article> TGetArticlesByAppUserId(int id);
+        public Task<List<Article>> TGetArticlesByAppUserIdAsync(int id);
         public List<CategoryWithArticleCount> TGetCategoriesWithArticleCount();
         public List<Article> TGetArticlesByViewCount();
         public List<Article> TGetRandomTwoTop5ViewedArticles();
         public int TGetTotalArticleViewCount();
         public List<BlogCommentGraphDTO> TGetBlogOverview();
         public List<BlogCommentGraphDTO> TGetBlogOverviewByAuthor(int userId);
+        public GetDashboardProfileStatisticsByAuthorDTO TGetDashboardProfileStatisticsByAuthor(int authorId);
     }
 }

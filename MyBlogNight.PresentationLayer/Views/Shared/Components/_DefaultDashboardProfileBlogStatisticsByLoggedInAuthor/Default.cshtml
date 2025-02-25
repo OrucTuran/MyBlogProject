@@ -1,0 +1,20 @@
+﻿@model MyBlogNight.DtoLayer.Dtos.ArticleDtos.GetDashboardProfileStatisticsByAuthorDTO
+@{
+    Layout = null;
+}
+
+<div class="profile-statistics">
+    <div class="text-center mt-4 border-bottom-1 pb-3">
+        <div class="row">
+            <div class="col">
+                <h3 class="m-b-0">@Model.TotalBlog</h3><span>Blog Yazısı</span>
+            </div>
+            <div class="col">
+                <h3 class="m-b-0">@Model.TotalComments</h3><span>Toplam Yorum</span>
+            </div>
+            <div class="col">
+                <h3 class="m-b-0">@Model.TotalViews</h3><span>Toplam Görüntülenme</span>
+            </div>
+        </div>
+    </div>
+</div>

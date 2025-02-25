@@ -52,8 +52,13 @@ namespace MyBlogNight.DataAccessLayer.EntityFramework
         public List<Article> GetArticlesByAppUserId(int id)
         {
             var context = new BlogContext();
-            var values = context.Articles.Where(x => x.AppUserId == id).ToList();
-            return values;
+            return context.Articles.Where(x => x.AppUserId == id).ToList();
+        }
+
+        public async Task<List<Article>> GetArticlesByAppUserIdAsync(int id)
+        {
+            var context = new BlogContext();
+            return await context.Articles.Where(x => x.AppUserId == id).ToListAsync();
         }
 
         public List<Article> GetArticlesByViewCount()
@@ -147,6 +152,32 @@ namespace MyBlogNight.DataAccessLayer.EntityFramework
                     BlogTitle = x.Title,
                     CommentCount = x.Comments.Count
                 }).ToList();
+        }
+        public GetDashboardProfileStatisticsByAuthorDTO GetDashboardProfileStatisticsByAuthor(int authorId)
+        {
+            var context = new BlogContext();
+
+            var totalArticles = context.Articles
+       .Where(x => x.AppUserId == authorId)
+       .Count();
+
+            var commentCounts = context.Articles
+                .Where(x => x.AppUserId == authorId)
+                .Select(x => x.Comments.Count())
+                .ToList();
+
+            var totalComments = commentCounts.Sum();
+
+            var totalViews = context.Articles
+                .Where(x => x.AppUserId == authorId)
+                .Sum(x => x.ArticleViewCount ?? 0);
+
+            return new GetDashboardProfileStatisticsByAuthorDTO
+            {
+                TotalBlog = totalArticles,
+                TotalComments = totalComments,
+                TotalViews = totalViews
+            };
         }
     }
 }

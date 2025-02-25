@@ -51,6 +51,11 @@ namespace MyBlogNight.BusinessLayer.Concrete
             return _articleDal.GetArticlesByAppUserId(id);
         }
 
+        public Task<List<Article>> TGetArticlesByAppUserIdAsync(int id)
+        {
+            return _articleDal.GetArticlesByAppUserIdAsync(id);
+        }
+
         public List<Article> TGetArticlesByViewCount()
         {
             return _articleDal.GetArticlesByViewCount();
@@ -74,6 +79,11 @@ namespace MyBlogNight.BusinessLayer.Concrete
         public List<CategoryWithArticleCount> TGetCategoriesWithArticleCount()
         {
             return _articleDal.GetCategoriesWithArticleCount();
+        }
+
+        public GetDashboardProfileStatisticsByAuthorDTO TGetDashboardProfileStatisticsByAuthor(int authorId)
+        {
+            return _articleDal.GetDashboardProfileStatisticsByAuthor(authorId);
         }
 
         public List<Article> TGetRandomTwoTop5ViewedArticles()

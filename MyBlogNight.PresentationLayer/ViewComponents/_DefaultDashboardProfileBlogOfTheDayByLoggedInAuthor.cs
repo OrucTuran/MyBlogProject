@@ -15,12 +15,23 @@ namespace MyBlogNight.PresentationLayer.ViewComponents
             _articleService = articleService;
             _userManager = userManager;
         }
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            var userValue = _userManager.FindByNameAsync(User.Identity.Name);
-            var values = _articleService.TGetArticlesByAppUserId(userValue.Id).ToList();
-            return View(values);
+            if (User.Identity == null || string.IsNullOrEmpty(User.Identity.Name))
+            {
+                return View(new List<Article>());
+            }
 
+            var userValue = await _userManager.FindByNameAsync(User.Identity.Name);
+            if (userValue == null)
+            {
+                return View(new List<Article>());
+            }
+
+            var values = await _articleService.TGetArticlesByAppUserIdAsync(userValue.Id);
+            return View(values);
         }
+
+
     }
 }
