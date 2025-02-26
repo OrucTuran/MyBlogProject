@@ -1,0 +1,90 @@
+﻿@model MyBlogNight.PresentationLayer.Models.EditBlogViewModel
+
+@{
+    ViewData["Title"] = "EditBlog";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- İçerik Alanı -->
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Makale Güncelle</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data" id="editBlogForm">
+                        <input type="hidden" name="ArticleId" value="@Model.ArticleId" />
+
+                        <div class="mb-3">
+                            <label for="Title" class="form-label">Başlık</label>
+                            <input type="text" class="form-control" id="Title" name="Title" value="@Model.Title" placeholder="Makale başlığını girin" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="Detail" class="form-label">İçerik</label>
+                            <textarea class="form-control" id="Detail" name="Detail" rows="5" placeholder="Makale içeriğini girin" required>@Model.Detail</textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="CategoryId" class="form-label">Kategori</label>
+                            <select asp-for="CategoryId" asp-items="@Model.Categories" class="form-control" required>
+                                <option value="">Kategori Seç</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="CoverImage" class="form-label">Kapak Resmi</label>
+                            <input type="file" class="form-control" id="CoverImage" name="CoverImage" />
+                            @if (!string.IsNullOrEmpty(Model.CoverImageUrl))
+                            {
+                                <div class="mt-2">
+                                    <img src="@Model.CoverImageUrl" alt="Mevcut Kapak Resmi" class="img-thumbnail" width="200">
+                                </div>
+                            }
+                        </div>
+
+                        <div class="mt-3">
+                            <button type="submit" class="btn btn-outline-success">Güncelle</button>
+                            <a href="@Url.Action("Index", "Profile", new { area = "Author" })" class="btn btn-outline-secondary">Geri Dön</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#editBlogForm").submit(function (event) {
+            event.preventDefault(); // Sayfanın yenilenmesini engelle
+
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: '@Url.Action("EditBlog", "Profile", new { area = "Author" })',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.success) {
+                        Swal.fire('Başarılı!', response.message, 'success')
+                            .then(() => window.location.href = response.redirectUrl);
+                    } else {
+                        let errorMessages = response.errors ? response.errors.join("<br>") : response.message;
+                        Swal.fire('Hata!', errorMessages, 'error');
+                    }
+                },
+                error: function () {
+                    Swal.fire('Hata!', 'Bir hata oluştu. Lütfen tekrar deneyin.', 'error');
+                }
+            });
+        });
+    });
+</script>

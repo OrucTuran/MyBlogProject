@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using MyBlogNight.BusinessLayer.Abstract;
 using MyBlogNight.DataAccessLayer.Context;
 using MyBlogNight.EntityLayer.Concrete;
 using MyBlogNight.PresentationLayer.Areas.Author.Models;
@@ -14,10 +16,14 @@ namespace MyBlogNight.PresentationLayer.Areas.Author.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly BlogContext _context;
-        public ProfileController(UserManager<AppUser> userManager, BlogContext context)
+        private readonly IArticleService _articleService;
+        private readonly ICategoryService _categoryService;
+        public ProfileController(UserManager<AppUser> userManager, BlogContext context, IArticleService articleService, ICategoryService categoryService)
         {
             _userManager = userManager;
             _context = context;
+            _articleService = articleService;
+            _categoryService = categoryService;
         }
 
         public async Task<IActionResult> Index()
@@ -133,5 +139,102 @@ namespace MyBlogNight.PresentationLayer.Areas.Author.Controllers
             return Json(new { success = false, message = "Lütfen tüm alanları doldurun!" });
         }
 
+        [HttpGet]
+        public async Task<IActionResult> EditBlog(int id)
+        {
+            var article = await _context.Articles.FindAsync(id);
+
+            if (article == null)
+            {
+                return RedirectToAction("Index", "Profile", new { area = "Author" });
+            }
+
+            // Kategorileri çekiyoruz ve viewModel'e ekliyoruz
+            var categories = await _context.Categories
+                                           .Select(c => new SelectListItem
+                                           {
+                                               Value = c.CategoryId.ToString(),
+                                               Text = c.CategoryName
+                                           }).ToListAsync();
+
+            var model = new EditBlogViewModel
+            {
+                ArticleId = article.ArticleId,
+                Title = article.Title,
+                Detail = article.Detail,
+                CategoryId = article.CategoryId,
+                CoverImageUrl = article.CoverImageUrl,
+                Categories = categories // Kategoriler burada
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditBlog(EditBlogViewModel model, IFormFile CoverImage)
+        {
+          
+                var _context = new BlogContext();
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+                if (user == null)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+
+                // Mevcut makaleyi bulalım
+                var existingArticle = await _context.Articles.FindAsync(model.ArticleId);
+
+                if (existingArticle == null)
+                {
+                    return Json(new { success = false, message = "Blog bulunamadı!" });
+                }
+
+                // Makale verilerini güncelle
+                existingArticle.Title = model.Title;
+                existingArticle.Detail = model.Detail;
+                existingArticle.CategoryId = model.CategoryId;
+                existingArticle.AppUserId = user.Id;
+                existingArticle.CreatedDate = existingArticle.CreatedDate; // Bu alan değiştirilmesin
+                existingArticle.ArticleViewCount = existingArticle.ArticleViewCount; // Bu da değişmesin
+
+                // Resim varsa, dosya yükleme işlemi
+                if (CoverImage != null && CoverImage.Length > 0)
+                {
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", CoverImage.FileName);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await CoverImage.CopyToAsync(stream);
+                    }
+                    existingArticle.CoverImageUrl = "/images/" + CoverImage.FileName;
+                }
+
+                // Veritabanını güncelle
+                _context.Articles.Update(existingArticle);
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true, message = "Post başarıyla güncellendi!", redirectUrl = Url.Action("Index", "Profile", new { area = "Author" }) });
+        
+
+            
+        }
+
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteBlog(int id)
+        {
+            var article = await _context.Articles.FindAsync(id);
+            if (article == null)
+            {
+                return Json(new { success = false, message = "Blog bulunamadı!" });
+            }
+
+            _context.Articles.Remove(article);
+            await _context.SaveChangesAsync();
+
+            return Json(new { success = true, message = "Blog başarıyla silindi!" });
+        }
     }
 }

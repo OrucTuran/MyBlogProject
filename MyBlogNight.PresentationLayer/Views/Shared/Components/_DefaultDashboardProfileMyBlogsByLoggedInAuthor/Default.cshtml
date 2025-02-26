@@ -5,20 +5,19 @@
 }
 
 <div id="post-list">
-    <!-- Örnek Blog Postu -->
     @foreach (var item in Model)
     {
-        <div class="profile-uoloaded-post border-bottom-1 pb-5 mt-4">
+        <div class="profile-uoloaded-post border-bottom-1 pb-5 mt-4" id="post-@item.ArticleId">
             <img src="@item.CoverImageUrl" alt="" class="img-fluid mb-3">
             <a class="post-title" href="javascript:void()">
                 <h4>@item.Title</h4>
             </a>
             <p>@item.Detail</p>
-            <button class="btn btn-primary mr-3">
-                <span class="mr-3"><i class="fa fa-heart"></i></span>Beğen
+            <button class="btn btn-warning mr-3" onclick="updatePost(@item.ArticleId)">
+                <span class="mr-3"><i class="fa fa-edit"></i></span>Güncelle
             </button>
-            <button class="btn btn-secondary">
-                <span class="mr-3"><i class="fa fa-reply"></i></span>Paylaş
+            <button class="btn btn-danger" onclick="deletePost(@item.ArticleId)">
+                <span class="mr-3"><i class="fa fa-trash"></i></span>Sil
             </button>
         </div>
     }
@@ -27,3 +26,42 @@
 <div class="text-center mt-3">
     <button class="btn btn-primary">Daha Fazla Yükle</button>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    function updatePost(postId) {
+        window.location.href = '/Author/Profile/EditBlog/' + postId; // Makale ID'si ile güncelleme sayfasına yönlendir
+    }
+    function deletePost(postId) {
+        Swal.fire({
+            title: "Emin misiniz?",
+            text: "Bu blog silinecek ve geri alınamaz!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Evet, Sil!",
+            cancelButtonText: "İptal"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "/Author/Profile/DeleteBlog/" + postId,
+                    type: "POST",
+                    success: function (response) {
+                        if (response.success) {
+                            $("#post-" + postId).fadeOut("slow", function () { $(this).remove(); });
+                            Swal.fire("Silindi!", response.message, "success");
+                        } else {
+                            Swal.fire("Hata!", response.message, "error");
+                        }
+                    },
+                    error: function () {
+                        Swal.fire("Hata!", "Bir hata oluştu. Lütfen tekrar deneyin.", "error");
+                    }
+                });
+            }
+        });
+    }
+</script>

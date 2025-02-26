@@ -18,7 +18,7 @@ namespace MyBlogNight.PresentationLayer.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var userValue = await _userManager.FindByNameAsync(User.Identity.Name);
-            var values = _articleService.TGetArticlesByAppUserId(userValue.Id);
+            var values = _articleService.TGetArticlesByAppUserId(userValue.Id).OrderByDescending(x=>x.CreatedDate).ToList();
             return View(values);
         }
     }
