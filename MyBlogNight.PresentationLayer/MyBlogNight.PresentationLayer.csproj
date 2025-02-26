@@ -27,6 +27,7 @@
     <Folder Include="wwwroot\focus-2\.git\objects\info\" />
     <Folder Include="wwwroot\focus-2\.git\objects\pack\" />
     <Folder Include="wwwroot\focus-2\.git\refs\tags\" />
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,0 +1,85 @@
+﻿@model List<MyBlogNight.EntityLayer.Concrete.Category>
+@{
+    Layout = null;
+}
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}
+
+<form id="blog-form" asp-area="Author" asp-action="NewBlogByAuthor" asp-controller="Profile" enctype="multipart/form-data" method="post">
+    <div class="post-input">
+        <input type="text" name="Title" id="post-title" class="form-control mb-2" placeholder="Blog Başlığı" required>
+
+        <textarea name="Detail" id="post-content" cols="30" rows="3" class="form-control bg-transparent mb-2" placeholder="Blog İçeriğinizi yazınız..." required></textarea>
+
+        <select name="CategoryId" class="form-control mb-2" required>
+            <option value="" disabled selected>Kategori Seçiniz</option>
+
+            @foreach (var category in Model)
+            {
+                <option value="@category.CategoryId">@category.CategoryName</option>
+            }
+        </select>
+
+        <input type="file" name="CoverImage" id="post-image" class="form-control-file mb-2">
+
+        <button type="submit" class="btn btn-primary">Post Ekle</button>
+    </div>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#blog-form").submit(function (event) {
+            event.preventDefault(); // Formun normal submit olmasını engelle
+
+            var form = document.getElementById("blog-form");
+            var formData = new FormData(form); // Form verisini al
+
+            $.ajax({
+                url: "/Author/Profile/NewBlogByAuthor",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Başarılı!",
+                            text: response.message,
+                            confirmButtonText: "Tamam"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = response.redirectUrl; // Yönlendirme
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Hata!",
+                            text: response.message,
+                            confirmButtonText: "Tamam"
+                        });
+                    }
+                },
+                error: function () {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Hata!",
+                        text: "Bir hata oluştu. Lütfen tekrar deneyin.",
+                        confirmButtonText: "Tamam"
+                    });
+                }
+            });
+        });
+    });
+</script>

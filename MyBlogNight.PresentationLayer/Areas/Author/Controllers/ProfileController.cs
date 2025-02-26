@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using MyBlogNight.DataAccessLayer.Context;
 using MyBlogNight.EntityLayer.Concrete;
 using MyBlogNight.PresentationLayer.Areas.Author.Models;
+using MyBlogNight.PresentationLayer.Models;
 using Newtonsoft.Json.Linq;
 
 namespace MyBlogNight.PresentationLayer.Areas.Author.Controllers
@@ -12,9 +13,11 @@ namespace MyBlogNight.PresentationLayer.Areas.Author.Controllers
     public class ProfileController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
-        public ProfileController(UserManager<AppUser> userManager)
+        private readonly BlogContext _context;
+        public ProfileController(UserManager<AppUser> userManager, BlogContext context)
         {
             _userManager = userManager;
+            _context = context;
         }
 
         public async Task<IActionResult> Index()
@@ -67,9 +70,13 @@ namespace MyBlogNight.PresentationLayer.Areas.Author.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditMyProfile(UserEditViewModel model)
+        public async Task<IActionResult> UpdateProfile(UserEditViewModel model)
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            if (user == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
             user.Name = model.Name;
             user.Surname = model.Surname;
             user.Email = model.Email;
@@ -79,9 +86,51 @@ namespace MyBlogNight.PresentationLayer.Areas.Author.Controllers
             var result = await _userManager.UpdateAsync(user);
             if (result.Succeeded)
             {
-                return RedirectToAction(nameof(EditMyProfile));
+                return RedirectToAction(nameof(Index));
             }
-            return View();
+            return RedirectToAction(nameof(Index));
+        }
+        [HttpPost]
+        public async Task<IActionResult> NewBlogByAuthor(NewBlogViewModel model, IFormFile CoverImage)
+        {
+            if (ModelState.IsValid)
+            {
+                var _context = new BlogContext();
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+                if (user == null)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+
+                var newArticle = new Article
+                {
+                    Title = model.Title,
+                    Detail = model.Detail,
+                    CategoryId = model.CategoryId,
+                    AppUserId = user.Id,
+                    CreatedDate = DateTime.Now,
+                    ArticleViewCount = 0,
+                    MainImageUrl = "test"
+                };
+
+                if (CoverImage != null && CoverImage.Length > 0)
+                {
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", CoverImage.FileName);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await CoverImage.CopyToAsync(stream);
+                    }
+                    newArticle.CoverImageUrl = "/images/" + CoverImage.FileName;
+                }
+
+                _context.Articles.Add(newArticle);
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true, message = "Post başarıyla eklendi!", redirectUrl = Url.Action("Index", "Profile", new { area = "Author" }) });
+            }
+
+            return Json(new { success = false, message = "Lütfen tüm alanları doldurun!" });
         }
 
     }

@@ -46,7 +46,7 @@
                                             <h4 class="text-muted">0555 444 33 22</h4>
                                             <p>Telefon Numarası</p>
                                         </div>
-                                    </div> 
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -79,13 +79,10 @@
 
 
                     <!--ViewComponent BlogOfTheDayByLoggedInAuthor -->
-
                     @await Component.InvokeAsync("_DefaultDashboardProfileBlogOfTheDayByLoggedInAuthor")
 
                     <!--ViewComponent RandomSixBlogImagesByLoggenInAuthor -->
-
                     <!--ViewComponent LatestBlogsByLoggenInAuthor (3 blog) -->
-
                     @* _DefaultDashboardProfileSidebarBlogComponents *@
 
 
@@ -116,35 +113,12 @@
                                         <a class="post-title" href="javascript:void()">
                                             <h4>Yeni Blog Yazısı</h4>
                                         </a>
-                                        <div class="post-input">
-                                            <input type="text" id="post-title" class="form-control mb-2" placeholder="Blog Başlığı">
-                                            <textarea id="post-content" cols="30" rows="3" class="form-control bg-transparent mb-2" placeholder="Blog İçeriğinizi yazınız..."></textarea>
-                                            <input type="file" id="post-image" class="form-control-file mb-2">
-                                            <br />
-                                            <button class="btn btn-primary" id="add-post">Post Ekle</button>
-                                        </div>
-
+                                        @await Component.InvokeAsync("_DefaultDashboardProfilAddingNewPostByLoggedInAuthor")
+                                        
                                         <!-- Postlar Listesi -->
-                                        <div id="post-list">
-                                            <!-- Örnek Blog Postu -->
-                                            <div class="profile-uoloaded-post border-bottom-1 pb-5 mt-4">
-                                                <img src="~/focus-2/images/profile/8.jpg" alt="" class="img-fluid mb-3">
-                                                <a class="post-title" href="javascript:void()">
-                                                    <h4>Örnek Blog Başlığı</h4>
-                                                </a>
-                                                <p>Bu, blog sisteminin nasıl çalıştığını göstermek için eklenen örnek bir blog içeriğidir.</p>
-                                                <button class="btn btn-primary mr-3">
-                                                    <span class="mr-3"><i class="fa fa-heart"></i></span>Yayınla
-                                                </button>
-                                                <button class="btn btn-secondary">
-                                                    <span class="mr-3"><i class="fa fa-reply"></i></span>Sil
-                                                </button>
-                                            </div>
-                                        </div>
+                                        @await Component.InvokeAsync("_DefaultDashboardProfileMyBlogsByLoggedInAuthor")
 
-                                        <div class="text-center mt-3">
-                                            <button class="btn btn-primary">Daha Fazla Yükle</button>
-                                        </div>
+                                        
                                     </div>
                                 </div>
 
@@ -229,50 +203,8 @@
 
 
                                 </div>
-
-                                <!--ViewComponent ProfileManagamentByLoggenInAuthor (3 blog) -->
-                                <div id="profile-settings" class="tab-pane fade">
-                                    <div class="pt-3">
-                                        <div class="settings-form">
-                                            <h4 class="text-primary">Account Setting</h4>
-                                            <form>
-                                                <div class="form-row">
-                                                    <div class="form-group col-md-6">
-                                                        <label>Adınız</label>
-                                                        <input type="text" placeholder="Adınızı giriniz" class="form-control">
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label>Soyadınız</label>
-                                                        <input type="text" placeholder="Soyadınızı giriniz" class="form-control">
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Hakkınızda Bilgi</label>
-                                                    <textarea class="form-control" placeholder="Hakkınızda kısa bir açıklama giriniz" rows="3"></textarea>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Kullanıcı Adınız</label>
-                                                    <input type="text" placeholder="Kullanıcı adınızı giriniz" class="form-control">
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Email Adresiniz</label>
-                                                    <input type="email" placeholder="Email adresinizi giriniz" class="form-control">
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Şifreniz</label>
-                                                    <input type="password" placeholder="Şifrenizi giriniz" class="form-control">
-                                                </div>
-
-                                                <button class="btn btn-primary" type="submit">Kaydet</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-
+                                @await Component.InvokeAsync("_DefaultDashboardProfileManagamentByLoggenInAuthor")
+                                <!--ViewComponent ProfileManagamentByLoggenInAuthor -->
 
                             </div>
                         </div>
@@ -284,34 +216,15 @@
 </div>
 
 <script>
-    document.getElementById("add-post").addEventListener("click", function () {
+    document.getElementById("add-post").addEventListener("click", function (event) {
+        event.preventDefault(); // Formun sayfayı yenilemesini engellemek icin
+
+        let form = document.querySelector("form");
         let title = document.getElementById("post-title").value;
         let content = document.getElementById("post-content").value;
-        let imageInput = document.getElementById("post-image");
-        let imageUrl = imageInput.files.length > 0 ? URL.createObjectURL(imageInput.files[0]) : "";
 
         if (title && content) {
-            let postHtml = `
-                    <div class="profile-uoloaded-post border-bottom-1 pb-5 mt-4">
-                        ${imageUrl ? `<img src="${imageUrl}" alt="" class="img-fluid mb-3">` : ""}
-                        <a class="post-title" href="javascript:void()">
-                            <h4>${title}</h4>
-                        </a>
-                        <p>${content}</p>
-                        <button class="btn btn-primary mr-3">
-                            <span class="mr-3"><i class="fa fa-heart"></i></span>Like
-                        </button>
-                        <button class="btn btn-secondary">
-                            <span class="mr-3"><i class="fa fa-reply"></i></span>Reply
-                        </button>
-                    </div>
-                `;
-            document.getElementById("post-list").insertAdjacentHTML("afterbegin", postHtml);
-
-            // Form temizleme
-            document.getElementById("post-title").value = "";
-            document.getElementById("post-content").value = "";
-            document.getElementById("post-image").value = "";
+            form.submit(); // **Formu manuel olarak sunucuya gönder**
         } else {
             alert("Lütfen başlık ve içerik giriniz.");
         }

@@ -1,0 +1,46 @@
+﻿@model MyBlogNight.EntityLayer.Concrete.AppUser
+@{
+    Layout = null;
+}
+
+<div id="profile-settings" class="tab-pane fade show active">
+    <div class="pt-3">
+        <div class="settings-form">
+            <h4 class="text-primary">Hesap Ayarları</h4>
+            <form method="post" asp-controller="Profile" asp-action="UpdateProfile">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Adınız</label>
+                        <input type="text" name="Name" value="@Model.Name" class="form-control">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Soyadınız</label>
+                        <input type="text" name="Surname" value="@Model.Surname" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Hakkınızda Bilgi</label>
+                    <textarea class="form-control" name="AppUserDescription" rows="3">@Model.AppUserDescription</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Kullanıcı Adınız</label>
+                    <input type="text" name="UserName" value="@Model.UserName" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Email Adresiniz</label>
+                    <input type="email" name="Email" value="@Model.Email" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Şifreniz</label>
+                    <input type="password" name="Password" class="form-control"placeholder="Değişikliklerin onaylanması için şifrenizi giriniz."required>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Kaydet</button>
+            </form>
+        </div>
+    </div>
+</div>
