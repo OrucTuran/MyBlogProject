@@ -133,15 +133,7 @@
                                     </div>
 
                                     <!--ViewComponent CategoriesByLoggenInAuthor (3 blog) -->
-                                    <div class="profile-skills pt-2 border-bottom-1 pb-2">
-                                        <h4 class="text-primary mb-4">Kategorilerim</h4>
-                                        <a href="javascript:void()" class="btn btn-outline-dark btn-rounded pl-4 my-3 my-sm-0 pr-4 mr-3 m-b-10">Admin</a>
-                                        <a href="javascript:void()" class="btn btn-outline-dark btn-rounded pl-4 my-3 my-sm-0 pr-4 mr-3 m-b-10">Dashboard</a>
-                                        <a href="javascript:void()" class="btn btn-outline-dark btn-rounded pl-4 my-3 my-sm-0 pr-4 mr-3 m-b-10">Photoshop</a>
-                                        <a href="javascript:void()" class="btn btn-outline-dark btn-rounded pl-4 my-3 my-sm-0 pr-4 mr-3 m-b-10">Bootstrap</a>
-                                        <a href="javascript:void()" class="btn btn-outline-dark btn-rounded pl-4 my-3 my-sm-0 pr-4 mr-3 m-b-10">Responsive</a>
-                                        <a href="javascript:void()" class="btn btn-outline-dark btn-rounded pl-4 my-3 my-sm-0 pr-4 mr-3 m-b-10">Crypto</a>
-                                    </div>
+                                    @await Component.InvokeAsync("_DefaultDashboardProfileCategoriesByLoggenInAuthor")
                                     <br />
                                     <div class="profile-personal-info">
                                         <h4 class="text-primary mb-4">Yazar Bilgileri</h4>
