@@ -19,7 +19,10 @@
                         </div>
                         <div class="blog-meta big-meta text-center">
                             <h4><a href="/BlogDetail/BlogDetails/@item.ArticleId" title="">@item.Title</a></h4>
-                            <p>@item.Detail.Substring(0, 300)... <a href="/BlogDetail/BlogDetails/@item.ArticleId">Devamını oku</a></p>
+                            <p>
+                                @(item.Detail.Length > 300 ? item.Detail.Substring(0, 300) + "..." : item.Detail)
+                                <a href="/BlogDetail/BlogDetails/@item.ArticleId">Devamını oku</a>
+                            </p>
                             <small><a title="">@item.Category.CategoryName</a></small>
                             <small><a title="">@item.CreatedDate</a></small>
                             <small><a title="">@item.AppUser.Name @item.AppUser.Surname</a></small>

@@ -29,7 +29,6 @@ namespace MyBlogNight.PresentationLayer.Controllers
         {
             int pageSize = 6;
             var values = _articleService.TArticleListWithCategoryAndAppUser().ToPagedList(page, pageSize);
-            // Kullanıcı bilgisini al ve ViewData'ya ekle
             var user = await _userManager.GetUserAsync(User);
             ViewData["UserName"] = user != null ? user.UserName : null;
             return View(values);
@@ -37,7 +36,7 @@ namespace MyBlogNight.PresentationLayer.Controllers
         public async Task<IActionResult> LogOut()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction(nameof(MarkediaIndex));  // Çıkış sonrası yönlendirme
+            return RedirectToAction(nameof(MarkediaIndex));
         }
         public PartialViewResult PartialMarkediaHead()
         {
@@ -50,7 +49,7 @@ namespace MyBlogNight.PresentationLayer.Controllers
         public async Task<PartialViewResult> PartialMarkediaHeader()
         {
             var user = await _userManager.GetUserAsync(User);
-            ViewData["UserName"] = user != null ? user.UserName : null; // TempData yerine ViewData kullanalım
+            ViewData["UserName"] = user != null ? user.UserName : null;
             return PartialView();
         }
 
@@ -63,14 +62,14 @@ namespace MyBlogNight.PresentationLayer.Controllers
         {
             if (ModelState.IsValid)
             {
-                _newsletterService.TInsert(newsletter); // Abone ekleme işlemi
+                _newsletterService.TInsert(newsletter);
                 TempData["Success"] = "Abonelik başarıyla kaydedildi.";
-                return Json(new { success = true, message = "Abonelik başarılı" }); // Başarı mesajı döndür
+                return Json(new { success = true, message = "Abonelik başarılı" });
             }
             else
             {
                 TempData["Error"] = "Bir hata oluştu.";
-                return Json(new { success = false, message = "Abonelik hatası" }); // Hata mesajı döndür
+                return Json(new { success = false, message = "Abonelik hatası" });
             }
         }
     }

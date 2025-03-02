@@ -12,6 +12,12 @@
             <a class="post-title" href="javascript:void()">
                 <h4>@item.Title</h4>
             </a>
+            <small><a title="">@(item.Category?.CategoryName ?? "Kategori Yok")</a></small>
+            <br />
+            <small><a title="">@item.CreatedDate</a></small>
+            <br />
+            <small><a title=""><i class="fa fa-eye"></i> @(item.ArticleViewCount ?? 0)</a></small>
+            <br />
             <p>@item.Detail</p>
             <button class="btn btn-warning mr-3" onclick="updatePost(@item.ArticleId)">
                 <span class="mr-3"><i class="fa fa-edit"></i></span>Güncelle
