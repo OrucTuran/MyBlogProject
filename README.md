@@ -41,3 +41,8 @@
 ---
 
 Bu proje, yazarların içerik üretmesine ve okuyucuların kaliteli bloglara ulaşmasına olanak tanıyan modern bir blog platformudur. 🎯
+
+📸 Projeye Ait Görseller
+
+Aşağıda projeye ait ekran görüntülerini bulabilirsiniz:
+
