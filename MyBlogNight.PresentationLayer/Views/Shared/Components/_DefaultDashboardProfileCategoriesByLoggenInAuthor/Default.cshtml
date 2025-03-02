@@ -1,0 +1,11 @@
+﻿@model List<MyBlogNight.EntityLayer.Concrete.Article>
+@{
+    Layout = null;
+}
+<div class="profile-skills pt-2 border-bottom-1 pb-2">
+    <h4 class="text-primary mb-4">Kategorilerim</h4>
+    @foreach (var item in Model)
+    {
+        <a href="javascript:void()" class="btn btn-outline-dark btn-rounded pl-4 my-3 my-sm-0 pr-4 mr-3 m-b-10">@item.Category.CategoryName</a>
+    }
+</div>

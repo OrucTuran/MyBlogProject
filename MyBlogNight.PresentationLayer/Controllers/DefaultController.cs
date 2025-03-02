@@ -28,7 +28,7 @@ namespace MyBlogNight.PresentationLayer.Controllers
         public async Task<IActionResult> MarkediaIndex(int page = 1)
         {
             int pageSize = 6;
-            var values = _articleService.TArticleListWithCategoryAndAppUser().ToPagedList(page, pageSize);
+            var values = _articleService.TArticleListWithCategoryAndAppUser().OrderByDescending(x=>x.CreatedDate).ToPagedList(page, pageSize);
             var user = await _userManager.GetUserAsync(User);
             ViewData["UserName"] = user != null ? user.UserName : null;
             return View(values);
