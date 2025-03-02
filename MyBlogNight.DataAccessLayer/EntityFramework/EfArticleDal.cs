@@ -52,13 +52,13 @@ namespace MyBlogNight.DataAccessLayer.EntityFramework
         public List<Article> GetArticlesByAppUserId(int id)
         {
             var context = new BlogContext();
-            return context.Articles.Where(x => x.AppUserId == id).ToList();
+            return context.Articles.Where(x => x.AppUserId == id).Include(x=>x.Category).ToList();
         }
 
         public async Task<List<Article>> GetArticlesByAppUserIdAsync(int id)
         {
             var context = new BlogContext();
-            return await context.Articles.Where(x => x.AppUserId == id).ToListAsync();
+            return await context.Articles.Where(x => x.AppUserId == id).OrderByDescending(x => x.CreatedDate).ToListAsync();
         }
 
         public List<Article> GetArticlesByViewCount()

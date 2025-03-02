@@ -3,6 +3,7 @@ using MyBlogNight.BusinessLayer.Abstract;
 using MyBlogNight.BusinessLayer.ValidationRules.CategoryValidationRules;
 using MyBlogNight.EntityLayer.Concrete;
 using FluentValidation.Results;
+using PagedList;
 
 namespace MyBlogNight.PresentationLayer.Areas.Author.Controllers
 {
@@ -16,9 +17,10 @@ namespace MyBlogNight.PresentationLayer.Areas.Author.Controllers
             _categoryService = categoryService;
         }
         [HttpGet]
-        public IActionResult CategoryList()
+        public IActionResult CategoryList(int page = 1)
         {
-            var values = _categoryService.TGetAll();
+            int pageSize = 7;
+            var values = _categoryService.TGetAll().ToPagedList(page,pageSize);
             return View(values);
         }
 
