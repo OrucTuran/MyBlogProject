@@ -29,7 +29,7 @@
                         <li>
                             <div class="@badgeClass"></div>
                             <a class="timeline-panel text-muted" href="#">
-                                <span>@comment.CreatedDate.Humanize()</span>
+                                <span>@comment.CreatedDate.ToUniversalTime().ToLocalTime().Humanize(culture: new System.Globalization.CultureInfo("tr-TR"))</span>
                                 <h6 class="m-t-5">@comment.CommentDetail.Truncate(100, "...")</h6>
                             </a>
                         </li>

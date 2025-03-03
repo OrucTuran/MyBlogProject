@@ -17,7 +17,9 @@
                             <img src="~/markedia/markedia/upload/author.jpg" alt="" class="rounded-circle">
                         </a>
                         <div class="media-body">
-                            <h4 class="media-heading user_name">@item.Commenter <small>@item.CreatedDate.Humanize()</small></h4>
+                            <h4 class="media-heading user_name">
+                                @item.Commenter <small>@item.CreatedDate.ToUniversalTime().ToLocalTime().Humanize(culture: new System.Globalization.CultureInfo("tr-TR"))</small>
+                            </h4>
                             <p>@item.CommentDetail</p>
                             <a href="#" class="btn btn-primary btn-sm">Reply</a>
                         </div>

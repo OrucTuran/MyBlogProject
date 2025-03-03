@@ -40,7 +40,7 @@
                                                 </p>
                                             </a>
                                         </div>
-                                        <span class="notify-time">@item.CreatedDate.Humanize()</span>
+                                        <span class="notify-time">@item.CreatedDate.ToUniversalTime().ToLocalTime().Humanize(culture: new System.Globalization.CultureInfo("tr-TR"))</span>
                                     </li>
                                 }
                             </ul>
