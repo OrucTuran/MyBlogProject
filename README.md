@@ -46,6 +46,8 @@ Bu proje, yazarların içerik üretmesine ve okuyucuların kaliteli bloglara ula
 
 Aşağıda projeye ait ekran görüntülerini bulabilirsiniz:
 
+![Image](https://github.com/user-attachments/assets/ae091f14-ab77-4be9-a9c5-b51a1e1c1bda)
+
 ![Image](https://github.com/user-attachments/assets/52990804-58b4-4877-aa35-19d3eb3e8f2e)
 
 ![Image](https://github.com/user-attachments/assets/42c9de7f-2c82-4e27-90a7-598623edc7ef)
