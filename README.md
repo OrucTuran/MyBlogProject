@@ -29,6 +29,7 @@
 - ✅ **ASP.NET Core MVC**
 - ✅ **Entity Framework Core (Code First)**
 - ✅ **Microsoft SQL Server (MSSQL)**
+- ✅ **N Katmanlı Mimari**
 - ✅ **Identity Framework** ile kullanıcı yönetimi
 - ✅ **Repository Pattern** ve **N Katmanlı Mimari**
 - ✅ **LINQ Kullanımı** ile veri sorgulama
